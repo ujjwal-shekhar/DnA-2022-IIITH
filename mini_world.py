@@ -76,11 +76,22 @@ def delete_small_business():
 def upd_num_emp_small_bsnss():
     """
     """
+    row
+    try:
+        query = "DELETE FROM `SMALL BUSINESS`\
+                 WHERE Aadhar_No = %d AND Name = %s"
 
+        print(query)
+        cur.execute(query, (row["AADHAR"], row["Name"]))
+        con.commit()
 
-    # try:
+        print("Deleted from Database")
 
-    # except:
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
+
 
     return
 
@@ -255,10 +266,10 @@ while(1):
         # Set db name accordingly which have been create by you
         # Set host to the server's address if you don't want to use local SQL server 
         con = pymysql.connect(host='localhost',
-                              port=30306,
+                              port=3306,
                               user="root",
-                              password="password",
-                              db='COMPANY',
+                              password="mynewpassword",
+                              db='DNA_TEST',
                               cursorclass=pymysql.cursors.DictCursor)
         tmp = sp.call('clear', shell=True)
 

@@ -166,7 +166,18 @@ CREATE TABLE `Expenditure` (
 
 LOCK TABLES `Expenditure` WRITE;
 /*!40000 ALTER TABLE `Expenditure` DISABLE KEYS */;
-INSERT INTO `Expenditure` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Expenditure` VALUES 
+(773653,29987,,,),
+(174575,38250,,,),
+(482186,23207,,,), 
+(682130,15537,,,),
+(318916,35648,,,),
+(414460,30857,,,),
+(731910,11714,,,),
+(530885,16339,,,),
+(403957,9290,,,),
+(644822,30624,,,),
+(441856,,,,),
 /*!40000 ALTER TABLE `Expenditure` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +196,7 @@ DROP TABLE IF EXISTS `Farmlands`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Farmlands` (
   `Aadhar_No` char(12) NOT NULL,
-  `Serial_No` int(6) NOT NULL,
+  `Serial_No` int(1) NOT NULL,
   `Area` int NOT NULL,
   `ITR_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`,`Serial_No`),
@@ -285,7 +296,7 @@ DROP TABLE IF EXISTS `Irrigation`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Irrigation` (
   `Aadhar_No` char(12) NOT NULL,
-  `Serial_No` int(6) NOT NULL,
+  `Serial_No` int(1) NOT NULL,
   `Mode_of_Irrigation` varchar(20) NOT NULL CHECK (`Mode_of_Irrigation` in ('Well','Tubewell','Canal')),
   PRIMARY KEY (`Aadhar_No`,`Serial_No`,`Mode_of_Irrigation`),
   CONSTRAINT `Irrigation_ibfk_1` FOREIGN KEY (`Aadhar_No`,`Serial_No`) REFERENCES `Farmlands` (`Aadhar_No`,`Serial_No`)
@@ -604,7 +615,7 @@ DROP TABLE IF EXISTS `Crops_Grown`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Crops_Grown` (
   `Aadhar_No` char(12) NOT NULL,
-  `Serial_No` int(6) NOT NULL,
+  `Serial_No` int(1) NOT NULL,
   `Name_of_Crop` varchar(20) NOT NULL CHECK (`Name_of_Crop` in ('Jowar','Bajra','Wheat','Corn','Rice')),
   `Yield_Year_1` int,
   `Yield_Year_2` int,

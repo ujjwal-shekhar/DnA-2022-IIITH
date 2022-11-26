@@ -645,6 +645,7 @@ CREATE TABLE `Event_Participation` (
   `Date` date NOT NULL,
   `Name` varchar(30) NOT NULL,
   `Expenditure_ID` int(6) NOT NULL,
+  
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`,`Date`,`Name`,`Expenditure_ID`),
   CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`),
   CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`),

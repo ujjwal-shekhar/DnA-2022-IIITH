@@ -45,7 +45,7 @@ LOCK TABLES `Villagers` WRITE;
 INSERT INTO `Villagers` VALUES 
 ('123456123411','ABCDEF123411','Dhruv Madan','Brahmin','Male','21','1234567811','Illiterate','Nurse'),
 ('123456123412','ABCDEF123412','Vasu Sood','Brahmin','Male','50','1234567812','Illiterate','Farmer'),
-('123456123413','ABCDEF123413','Chandana Mishra','Kadia','Male','63','1234567813','Literate','Farmer'),
+('123456123413','ABCDEF123413','Chandan Mishra','Kadia','Male','63','1234567813','Literate','Farmer'),
 ('123456123414','ABCDEF123414','Bhavana Bala','Kadia','Male','19','1234567814','Literate','Doctor'),
 ('123456123415','ABCDEF123415','Vinay Sen','Nair','Male','75','1234567815','Illiterate','Secretary'),
 ('123456123416','ABCDEF123416','Karthik Pillay','Dalit','Male','45','1234567816','Illiterate','Businessman'),
@@ -70,6 +70,20 @@ UNLOCK TABLES;
 --
 -- Table structure for table `DEPENDENT`
 --
+
+LOCK TABLES `Panchayat_Members` WRITE;
+/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
+INSERT INTO `Panchayat_Members` VALUES 
+/*sarpanch*/
+('123456123413','ABCDEF123413','22','3','20000','63',NULL),
+
+('123456123411','ABCDEF123411','2','1','10000','21','1234567813'),
+('123456123412','ABCDEF123412','7','2','12000','50','1234567813'),
+('123456123426','ABCDEF123426','12','4','15000','47','1234567813'),
+('123456123431','ABCDEF123431','22','5','18000','67','1234567813'),
+('123456123432','ABCDEF123432','12','6','15000','90','1234567813'),
+/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 

@@ -27,3 +27,20 @@ INSERT INTO `Manage_Expenditure` VALUES
 ('123456123432', 220206);
 /*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
 UNLOCK TABLES;
+
+/*Religion and Caste*/
+LOCK TABLES `Religion_and_Caste` WRITE;
+/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
+INSERT INTO `Religion_and_Caste` VALUES 
+/sarpanch/
+('Brahmin','Hindu'),
+('Kadia','Muslim'),
+('Nair','Hindu'),
+('Dalit','Hindu'),
+('Mahuri','Hindu'),
+('Halba','Tribal'),
+('Vaishya','Hindu'),
+('Kshatriya','Hindu'),
+('Iyer','Hindu');
+/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
+UNLOCK TABLES;

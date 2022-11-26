@@ -41,7 +41,17 @@ CREATE TABLE `Religion_and_Caste` (
 
 LOCK TABLES `Religion_and_Caste` WRITE;
 /*!40000 ALTER TABLE `Religion_and_Caste` DISABLE KEYS */;
-INSERT INTO `Religion_and_Caste` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Religion_and_Caste` VALUES 
+/sarpanch/
+('Brahmin','Hindu'),
+('Kadia','Muslim'),
+('Nair','Hindu'),
+('Dalit','Hindu'),
+('Mahuri','Hindu'),
+('Halba','Tribal'),
+('Vaishya','Hindu'),
+('Kshatriya','Hindu'),
+('Iyer','Hindu');
 /*!40000 ALTER TABLE `Religion_and_Caste` ENABLE KEYS */;
 UNLOCK TABLES;
 

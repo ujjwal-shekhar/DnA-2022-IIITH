@@ -29,10 +29,10 @@ def add_new_villager():
             raise Exception("Invalid input for Literacy")
 
         query = "INSERT INTO VILLAGER\
-                (AADHAR, PAN, Name, Caste, Sex, Age, Phone, Literacy, Occupation) \
+                (Aadhar_No, Pan_No, Name, Caste, Sex, Age, Phone, Literacy, Occupation) \
                 VALUES('%d', '%d', '%s', '%s', '%s', '%d', '%d', %s, %s)" % (
                 row["AADHAR"], row["PAN"], row["Name"], row["Caste"], row["Sex"], \
-                row["Address"], row["Sex"], row["Age"], row["Phone"], row["Literacy"])
+                row["Sex"],  row["Phone"], row["Literacy"], row["Occupation"])
         
         print(query)
         cur.execute(query)
@@ -49,11 +49,27 @@ def add_new_villager():
 
 def delete_small_business():
     """
+    We will delete small business data
     """
 
-    # try:
+    row ={}
+    row["AADHAR"] = input("Enter small business owner's AADHAR Number")
+    row["name"] = input("Enter name of the small business")
 
-    # except:
+    try:
+        query = "DELETE FROM `SMALL BUSINESS`\
+                 WHERE Aadhar_No = %d AND Name = %s"
+
+        print(query)
+        cur.execute(query, (row["AADHAR"], row["Name"]))
+        con.commit()
+
+        print("Deleted from Database")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 

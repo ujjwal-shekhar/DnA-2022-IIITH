@@ -153,7 +153,7 @@ DROP TABLE IF EXISTS `Expenditure`;
 CREATE TABLE `Expenditure` (
   `Expenditure_ID` int(6) NOT NULL,
   `Budget_Assigned` int,
-  `Description` varchar(100),
+  `Description` varchar(30),
   `Date_of_Aassignment` date NOT NULL,
   `Status` varchar(10) CHECK (`Status` in ('Past','Ongoing','Future')),
   PRIMARY KEY (`Expenditure_ID`)
@@ -167,17 +167,17 @@ CREATE TABLE `Expenditure` (
 LOCK TABLES `Expenditure` WRITE;
 /*!40000 ALTER TABLE `Expenditure` DISABLE KEYS */;
 INSERT INTO `Expenditure` VALUES 
-(773653,29987,,,),
-(174575,38250,,,),
-(482186,23207,,,), 
-(682130,15537,,,),
-(318916,35648,,,),
-(414460,30857,,,),
-(731910,11714,,,),
-(530885,16339,,,),
-(403957,9290,,,),
-(644822,30624,,,),
-(441856,,,,),
+(773653,30000,'Shauchalay Abhiyan','2022-02-15','Past'),
+(174575,39000,'Polio Vaccination 2022','2022-04-06','Ongoing'),
+(482186,23500,'COVID Vaccination Dose 1','2022-05-09','Past'), 
+(682130,15700,'Hospital Road reconstruction','2023-05-25','Future'),
+(318916,35000,'COVID Vaccination Dose 2','2022-07-21','Past'),
+(414460,29000,'Thana Renovation','2023-07-11','Future'),
+(731910,11000,'Earthquake Repairs','2022-07-21','Past'),
+(530885,18300,'Solar Panel Construction','2023-08-26','Future'),
+(403957,9300,'Jail Construction','2022-10-21','Ongoing'),
+(644822,30500,'Navratri','2022-12-19','Past'),
+(441856,12000 ,'Drinking Water Taps','2022-03-21','Ongoing');
 /*!40000 ALTER TABLE `Expenditure` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,7 +277,13 @@ CREATE TABLE `Sources` (
 
 LOCK TABLES `Sources` WRITE;
 /*!40000 ALTER TABLE `Sources` DISABLE KEYS */;
-INSERT INTO `Sources` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Sources` VALUES
+(12776,150000,'2022-03-04','Central Government'),
+(34767,89000,'2022-03-10','State Government'),
+(23446,65000 ,'2022-05-25','Thambani Pvt Ltd'),
+(14042,31000 ,'2022-06-03','Village Welfare Fund'),
+(30815,49000,'2022-09-16','Flood Relief'),
+(26870,12500,'2022-09-08','Amarnath Gates Foundation');
 /*!40000 ALTER TABLE `Sources` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,7 +315,14 @@ CREATE TABLE `Irrigation` (
 
 LOCK TABLES `Irrigation` WRITE;
 /*!40000 ALTER TABLE `Irrigation` DISABLE KEYS */;
-INSERT INTO `Irrigation` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Irrigation` VALUES
+('123456123412',1,'Well'),
+('123456123413',1,'Canal'),
+('123456123421',1,'Well'),
+('123456123422',1,'Tubewell'),
+('123456123424',1,'Canal'),
+('123456123441',1,'Well'),
+('123456123441',2'Tubewell');
 /*!40000 ALTER TABLE `Irrigation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,7 +354,11 @@ CREATE TABLE `Age_Group` (
 
 LOCK TABLES `Age_Group` WRITE;
 /*!40000 ALTER TABLE `Age_Group` DISABLE KEYS */;
-INSERT INTO `Age_Group` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Age_Group` VALUES
+(18,35,'Youth'),
+(36,60,'Middle-Aged'),
+(61,80,'Old'),
+(81,150,'Declining');
 /*!40000 ALTER TABLE `Age_Group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,6 +368,37 @@ UNLOCK TABLES;
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
 
+-------------------------------------------------------------------- RU START ------------------------------------------------------------------------
+--
+-- Table structure for table `Tax_Bracket`
+--
+DROP TABLE IF EXISTS `Tax_Bracket`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Tax_bracket` (
+  `Min_Income` int NOT NULL,
+  `Max_Income` int NOT NULL,
+  `Tax_bracket` varchar(30) NOT NULL CHECK (`Tax_Bracket` in ('BPL','Non-BPL')),
+  PRIMARY KEY (`Min_Income`,`Max_Income`),
+  UNIQUE KEY `Tax_Bracket` (`Tax_Bracket`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `DEPARTMENT`
+--
+
+LOCK TABLES `Tax_Bracket` WRITE;
+/*!40000 ALTER TABLE `Tax_Bracket` DISABLE KEYS */;
+INSERT INTO `Tax_Bracket` VALUES
+(0,50000,'BPL'),
+(50000,100000000,'Non_BPL');
+/*!40000 ALTER TABLE `Tax_Bracket` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `DEPENDENT`
+--
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Tax_Waivers`
@@ -403,7 +451,11 @@ CREATE TABLE `Events` (
 
 LOCK TABLES `Events` WRITE;
 /*!40000 ALTER TABLE `Events` DISABLE KEYS */;
-INSERT INTO `Events` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Events` VALUES
+('2022-06-10','COVID Vaccination Drive','Vaccination Drive for 2nd dose of COVID Vaccine'),
+('2022-08-25','Village Fair','Fair organized for villagers'),
+('2022-04-22','COVID Vaccination Drive','Vaccination Drive for 1st dose of COVID Vaccine'),
+('2022-09-21','Dussehra','Dussehra Celebration')
 /*!40000 ALTER TABLE `Events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,7 +520,15 @@ CREATE TABLE `Sponsors` (
 
 LOCK TABLES `Sponsors` WRITE;
 /*!40000 ALTER TABLE `Sponsors` DISABLE KEYS */;
-INSERT INTO `Sponsors` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Sponsors` VALUES
+('2022-06-10','COVID Vaccination Drive','Central Government'),
+('2022-08-25','Village Fair','Panchayat'),
+('2022-04-22','COVID Vaccination Drive','Village Hospital'),
+('2022-09-21','Dussehra','Temple Priest'),
+('2022-06-10','COVID Vaccination Drive','Thambani Pvt Ltd'),
+('2022-08-25','Village Fair','State Government'),
+('2022-04-22','COVID Vaccination Drive','Central Government'),
+('2022-09-21','Dussehra','Sarpanch');
 /*!40000 ALTER TABLE `Sponsors` ENABLE KEYS */;
 UNLOCK TABLES;
 

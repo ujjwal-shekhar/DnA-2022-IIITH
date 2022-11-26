@@ -98,7 +98,7 @@ CREATE TABLE `Panchayat_Members` (
   `Salary` int(2),
   `Supervisor_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`),
-  CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No` ON DELETE CASCADE ON UPDATE CASCADE)
+  CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 LOCK TABLES `Panchayat_Members` WRITE;
@@ -375,7 +375,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `Tax_Bracket`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Tax_bracket` (
+CREATE TABLE `Tax_Bracket` (
   `Min_Income` int NOT NULL,
   `Max_Income` int NOT NULL,
   `Tax_bracket` varchar(30) NOT NULL CHECK (`Tax_Bracket` in ('BPL','Non-BPL')),
@@ -455,7 +455,7 @@ INSERT INTO `Events` VALUES
 ('2022-06-10','COVID Vaccination Drive','Vaccination Drive for 2nd dose of COVID Vaccine'),
 ('2022-08-25','Village Fair','Fair organized for villagers'),
 ('2022-04-22','COVID Vaccination Drive','Vaccination Drive for 1st dose of COVID Vaccine'),
-('2022-09-21','Dussehra','Dussehra Celebration')
+('2022-09-21','Dussehra','Dussehra Celebration');
 /*!40000 ALTER TABLE `Events` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -644,9 +644,9 @@ DROP TABLE IF EXISTS `Collect`;
 CREATE TABLE `Collect` (
   `Panchayat_Member_Aadhar_No` char(12) NOT NULL,
   `ITR_No` char(12) NOT NULL,
-  PRIMARY KEY (`Panchayat_Member_Aadhar_No`,`ITR_No`)
+  PRIMARY KEY (`Panchayat_Member_Aadhar_No`,`ITR_No`),
   CONSTRAINT `Collect_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Collect_ibfk_1` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Collect_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

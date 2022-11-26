@@ -76,16 +76,22 @@ def delete_small_business():
 def upd_num_emp_small_bsnss():
     """
     """
-    row
+
+    row = {}
+    row["AADHAR"] = input("Enter small business owner's AADHAR Number")
+    row["name"] = input("Enter name of the small business")
+    row["No_of_employees"] = input("Enter the new number of employees : ")
+
     try:
-        query = "DELETE FROM `SMALL BUSINESS`\
+        query = "UPDATE `Small_Businesses`\
+                 SET No_of_employees = %d\
                  WHERE Aadhar_No = %d AND Name = %s"
 
         print(query)
-        cur.execute(query, (row["AADHAR"], row["Name"]))
+        cur.execute(query, (row["No_of_employees"]))
         con.commit()
 
-        print("Deleted from Database")
+        print("Updated Database!")
 
     except Exception as e:
         con.rollback()
@@ -99,9 +105,20 @@ def get_avg_age_villager():
     """
     """
 
-    # try:
+    try:
+        query = "SELECT AVG(Age) AS `Average Age`\
+                FROM VILLAGERS"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 
@@ -109,9 +126,20 @@ def get_vaccination_events():
     """
     """
 
-    # try:
+    try:
+        query = "SELECT * FROM Events \
+                WHERE Purpose LIKE '%Vaccination%'"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 
@@ -119,19 +147,47 @@ def get_nurse_data():
     """
     """
 
-    # try:
+    try:
+        query = "SELECT Aadhar_No, Name, Age, Sex, Phone_No\
+                FROM Villagers\
+                WHERE Occupation\
+                LIKE '%Nurse%'"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
+
 
 def get_large_farm_owners():
     """
     """
+    LARGE_FARM_CUTOFF = 500 #sq-m
 
-    # try:
+    try:
+        query = "SELECT * \
+                FROM Villagers\
+                WHERE Occupation\
+                LIKE '%Nurse%'"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 
@@ -192,6 +248,34 @@ def get_farmlands_with_tubewells():
     # try:
 
     # except:
+
+    return
+
+def complex_query_1():
+    """
+    List tax waivers of Panchayat members with farmland area >= 1000 m2.
+    This functional requirement could help analyze if panchayat members are abusing powers
+    """
+
+    try:
+        query = "SELECT Panchayat_Members.Aadhar_No, \
+                        Villagers.Name,\
+                        Panchayat_Members.Salary,\
+                        Panchayat_Members.Years_Of_Service\
+                 FROM Panchayat_Members, Villagers, Farmlands\
+                 WHERE Panchayat_Members.Aadhar_No = Villagers.Aadhar_No\
+                    AND Farmlands.Area >= 1000"
+
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Deleted from Database")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 

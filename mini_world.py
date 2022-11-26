@@ -6,7 +6,6 @@ def add_new_villager():
     """
     This is a function to satisfy one of the INSERT functional requirements.
     We ask the user to enter relevant data about the new villager.
-
     """
     try:
         row = {}
@@ -76,16 +75,22 @@ def delete_small_business():
 def upd_num_emp_small_bsnss():
     """
     """
-    row
+
+    row = {}
+    row["AADHAR"] = input("Enter small business owner's AADHAR Number")
+    row["name"] = input("Enter name of the small business")
+    row["No_of_employees"] = input("Enter the new number of employees : ")
+
     try:
-        query = "DELETE FROM `SMALL BUSINESS`\
+        query = "UPDATE `Small_Businesses`\
+                 SET No_of_employees = %d\
                  WHERE Aadhar_No = %d AND Name = %s"
 
         print(query)
-        cur.execute(query, (row["AADHAR"], row["Name"]))
+        cur.execute(query, (row["No_of_employees"]))
         con.commit()
 
-        print("Deleted from Database")
+        print("Updated Database!")
 
     except Exception as e:
         con.rollback()
@@ -99,9 +104,20 @@ def get_avg_age_villager():
     """
     """
 
-    # try:
+    try:
+        query = "SELECT AVG(Age) AS `Average Age`\
+                FROM VILLAGERS"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 
@@ -109,9 +125,20 @@ def get_vaccination_events():
     """
     """
 
-    # try:
+    try:
+        query = "SELECT * FROM Events \
+                WHERE Purpose LIKE '%Vaccination%'"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 
@@ -119,19 +146,47 @@ def get_nurse_data():
     """
     """
 
-    # try:
+    try:
+        query = "SELECT Aadhar_No, Name, Age, Sex, Phone_No\
+                FROM Villagers\
+                WHERE Occupation\
+                LIKE '%Nurse%'"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
+
 
 def get_large_farm_owners():
     """
     """
+    LARGE_FARM_CUTOFF = 500 #sq-m
 
-    # try:
+    try:
+        query = "SELECT * \
+                FROM Villagers\
+                WHERE Occupation\
+                LIKE '%Nurse%'"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 
@@ -139,9 +194,22 @@ def get_salary_vs_caste():
     """
     """
 
-    # try:
+        try:
+        query = "SELECT * \
+                FROM Villagers\
+                WHERE Occupation\
+                LIKE '%Nurse%'"
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 
@@ -185,14 +253,101 @@ def get_major_sources():
 
     return
 
-def get_farmlands_with_tubewells():
+def complex_query_1():
     """
+    List tax waivers and information of Panchayat members with farmland area >= 1000 m2.
+    This functional requirement could help analyze if panchayat members are abusing their powers.
+    """
+
+    try:
+        query = "\
+                SELECT\
+                    Panchayat_Members.Aadhar_No AS `AADHAR INFO`, \
+                    Villagers.Name AS `Panchayat Member Name`,\
+                    Panchayat_Members.Salary AS `Salary`,\
+                    Panchayat_Members.Years_Of_Service AS `Years of Service`,\
+                    Taxation.Tax_Waiver AS `Tax Waiver Recieved`,\
+                    Farmlands.Area AS `Farmland Area`\
+                FROM Panchayat_Members, Villagers, Farmlands, Tax_Waivers, Taxation\
+                WHERE \
+                    Panchayat_Members.Aadhar_No = Villagers.Aadhar_No\
+                    AND Panchayat_Members.Aadhar_No = Taxation.Aadhar_No\
+                    AND Taxation.ITR_No = Tax_Waivers.ITR_No\
+                    AND Farmlands.Aadhar_No = Panchayat_Members.Aadhar_No\
+                    AND Farmlands.Area >= 1000\
+                "
+
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched query!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
+    return
+
+def complex_query_2():
+    """
+    List number of employed women above the age of 30.
+    This will help user to analyze how educated middle aged women are in the community.
+    Unemployement is the filing of 0 declared income in the Taxation data.
+    """
+
+    try:
+        query = "\
+                SELECT\
+                    Villagers.Name AS Name\
+                    Villagers.Age AS Age\
+                    Taxation.Total_Income AS `Current Income`\
+                FROM Villagers, Taxation\
+                WHERE\
+                    Villagers.Aadhar_No = Taxation.Aadhar_No\
+                    Taxation.Total_Income <> 0\
+                "
+
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched query!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
+
+    return 
+
+def complex_query_3():
+    """
+    List details of people with names starting with "A" and are in the top 30% of tax payers.
+    This will help analyzing name v/s tax payer demographic.
     """
 
     # try:
+    #     query = "\
+    #             SELECT\
+    #                 Villagers.Name AS Name,\
+    #                 Taxation.\
+    #             "
 
-    # except:
+    #     print(query)
+    #     cur.execute(query)
+    #     con.commit()
 
+    #     print("Fetched query!!")
+
+    # except Exception as e:
+    #     con.rollback()
+    #     print("Failed to delete from database")
+    #     print(">>>>>>>>>>>>>", e)
+
+    return
+
+def get_non_voters():
     return
 
 def hireAnEmployee():

@@ -55,7 +55,7 @@ DROP TABLE IF EXISTS `Villagers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Villagers` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Pan_No` char(12) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Sex` varchar(50) CHECK (`Sex` in ('Male','Female','Intersex')),
@@ -91,12 +91,12 @@ DROP TABLE IF EXISTS `Panchayat_Members`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Panchayat_Members` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Pan_No` char(12) NOT NULL,
   `Years_of_Service` int(2),
   `Ward_No` int(2),
   `Salary` int(2),
-  `Supervisor_Aadhar_No` int(12) NOT NULL,
+  `Supervisor_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`),
   CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -121,7 +121,7 @@ CREATE TABLE `Taxation` (
   `Category` varchar(20) NOT NULL CHECK (`Category` in ('Business','Personal', 'Property')),
   `Total_Income` int(10),
   `Amount_Paid` int(10),
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`ITR_No`),
   CONSTRAINT `Taxation_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -184,7 +184,7 @@ DROP TABLE IF EXISTS `Farmlands`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Farmlands` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Serial_No` int(6) NOT NULL,
   `Area` int NOT NULL,
   `ITR_No` char(12) NOT NULL,
@@ -217,7 +217,7 @@ DROP TABLE IF EXISTS `Small_Businesses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Small_Businesses` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Type` varchar(50),
   `No_of_employees` int,
@@ -284,7 +284,7 @@ DROP TABLE IF EXISTS `Irrigation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Irrigation` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Serial_No` int(6) NOT NULL,
   `Mode_of_Irrigation` varchar(20) NOT NULL CHECK (`Mode_of_Irrigation` in ('Well','Tubewell','Canal')),
   PRIMARY KEY (`Aadhar_No`,`Serial_No`,`Mode_of_Irrigation`),
@@ -410,7 +410,7 @@ DROP TABLE IF EXISTS `Govt_Schemes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Govt_Schemes` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Which` varchar(30) NOT NULL,
   `Since_When` date NOT NULL,
   `Benefits_Provided` varchar(100),
@@ -475,7 +475,7 @@ DROP TABLE IF EXISTS `Manage_Sources`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Manage_Sources` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Source_ID` int(6) NOT NULL,
   PRIMARY KEY (`Aadhar_No`,`Source_ID`),
   CONSTRAINT `Manage_Sources_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`),
@@ -507,7 +507,7 @@ DROP TABLE IF EXISTS `Manage_Expenditure`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Manage_Expenditure` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Expenditure_ID` int(6) NOT NULL,
   PRIMARY KEY (`Aadhar_No`,`Expenditure_ID`),
   CONSTRAINT `Manage_Expenditure_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`),
@@ -539,8 +539,8 @@ DROP TABLE IF EXISTS `Elect`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Elect` (
-  `Villager_Aadhar_No` int(12) NOT NULL,
-  `Panchayat_Member_Aadhar_No` int(12) NOT NULL,
+  `Villager_Aadhar_No` char(12) NOT NULL,
+  `Panchayat_Member_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`),
   CONSTRAINT `Elect_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`),
   CONSTRAINT `Elect_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`)
@@ -571,7 +571,7 @@ DROP TABLE IF EXISTS `Collect`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Collect` (
-  `Panchayat_Member_Aadhar_No` int(12) NOT NULL,
+  `Panchayat_Member_Aadhar_No` char(12) NOT NULL,
   `ITR_No` char(12) NOT NULL,
   PRIMARY KEY (`Panchayat_Member_Aadhar_No`,`ITR_No`)
   CONSTRAINT `Collect_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`)
@@ -603,7 +603,7 @@ DROP TABLE IF EXISTS `Crops_Grown`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Crops_Grown` (
-  `Aadhar_No` int(12) NOT NULL,
+  `Aadhar_No` char(12) NOT NULL,
   `Serial_No` int(6) NOT NULL,
   `Name_of_Crop` varchar(20) NOT NULL CHECK (`Name_of_Crop` in ('Jowar','Bajra','Wheat','Corn','Rice')),
   `Yield_Year_1` int,
@@ -640,12 +640,12 @@ DROP TABLE IF EXISTS `Event_Participation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Event_Participation` (
-  `Villager_Aadhar_No` int(12) NOT NULL,
-  `Panchayat_Member_Aadhar_No` int(12) NOT NULL,
+  `Villager_Aadhar_No` char(12) NOT NULL,
+  `Panchayat_Member_Aadhar_No` char(12) NOT NULL,
   `Date` date NOT NULL,
   `Name` varchar(30) NOT NULL,
   `Expenditure_ID` int(6) NOT NULL,
-  
+
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`,`Date`,`Name`,`Expenditure_ID`),
   CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`),
   CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`),

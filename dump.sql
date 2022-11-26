@@ -67,7 +67,7 @@ CREATE TABLE `Villagers` (
   PRIMARY KEY (`Aadhar_No`),
   UNIQUE KEY `Pan_No` (`Pan_No`),
   UNIQUE KEY `Phone_No` (`Phone_No`),
-  CONSTRAINT `Villagers_ibfk_1` FOREIGN KEY (`Caste_or_Sect`) REFERENCES `Religion_and_Caste` (`Caste_or_Sect`)
+  CONSTRAINT `Villagers_ibfk_1` FOREIGN KEY (`Caste_or_Sect`) REFERENCES `Religion_and_Caste` (`Caste_or_Sect`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -98,7 +98,7 @@ CREATE TABLE `Panchayat_Members` (
   `Salary` int(2),
   `Supervisor_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`),
-  CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`)
+  CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No` ON DELETE CASCADE ON UPDATE CASCADE)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 LOCK TABLES `Panchayat_Members` WRITE;
@@ -123,7 +123,7 @@ CREATE TABLE `Taxation` (
   `Amount_Paid` int(10),
   `Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`ITR_No`),
-  CONSTRAINT `Taxation_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`)
+  CONSTRAINT `Taxation_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -200,7 +200,7 @@ CREATE TABLE `Farmlands` (
   `Area` int NOT NULL,
   `ITR_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`,`Serial_No`),
-  CONSTRAINT `Farmlands_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`)
+  CONSTRAINT `Farmlands_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -235,7 +235,7 @@ CREATE TABLE `Small_Businesses` (
   `Govt_Support_Provided` varchar(100),
   `ITR_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`,`Name`),
-  CONSTRAINT `Small_Businesses_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`)
+  CONSTRAINT `Small_Businesses_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -305,7 +305,7 @@ CREATE TABLE `Irrigation` (
   `Serial_No` int(1) NOT NULL,
   `Mode_of_Irrigation` varchar(20) NOT NULL CHECK (`Mode_of_Irrigation` in ('Well','Tubewell','Canal')),
   PRIMARY KEY (`Aadhar_No`,`Serial_No`,`Mode_of_Irrigation`),
-  CONSTRAINT `Irrigation_ibfk_1` FOREIGN KEY (`Aadhar_No`,`Serial_No`) REFERENCES `Farmlands` (`Aadhar_No`,`Serial_No`)
+  CONSTRAINT `Irrigation_ibfk_1` FOREIGN KEY (`Aadhar_No`,`Serial_No`) REFERENCES `Farmlands` (`Aadhar_No`,`Serial_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -410,7 +410,7 @@ CREATE TABLE `Tax_Waivers` (
   `Tax_Waiver` int NOT NULL,
   `ITR_No` char(12) NOT NULL,
   PRIMARY KEY (`Tax_Waiver`,`ITR_No`),
-  CONSTRAINT `Tax_Waivers_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`)
+  CONSTRAINT `Tax_Waivers_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -478,7 +478,7 @@ CREATE TABLE `Govt_Schemes` (
   `Since_When` date NOT NULL,
   `Benefits_Provided` varchar(100),
   PRIMARY KEY (`Aadhar_no`,`Which`),
-  CONSTRAINT `Govt_Schemes_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`)
+  CONSTRAINT `Govt_Schemes_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -510,7 +510,7 @@ CREATE TABLE `Sponsors` (
   `Name` varchar(30) NOT NULL,
   `Sponsor` varchar(30) NOT NULL,
   PRIMARY KEY (`Date`,`Name`,`Sponsor`),
-  CONSTRAINT `Sponsors_ibfk_1` FOREIGN KEY (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`)
+  CONSTRAINT `Sponsors_ibfk_1` FOREIGN KEY (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -549,8 +549,8 @@ CREATE TABLE `Manage_Sources` (
   `Aadhar_No` char(12) NOT NULL,
   `Source_ID` int(6) NOT NULL,
   PRIMARY KEY (`Aadhar_No`,`Source_ID`),
-  CONSTRAINT `Manage_Sources_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`),
-  CONSTRAINT `Manage_Sources_ibfk_2` FOREIGN KEY (`Source_ID`) REFERENCES `Sources` (`Source_ID`)
+  CONSTRAINT `Manage_Sources_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Manage_Sources_ibfk_2` FOREIGN KEY (`Source_ID`) REFERENCES `Sources` (`Source_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -581,8 +581,8 @@ CREATE TABLE `Manage_Expenditure` (
   `Aadhar_No` char(12) NOT NULL,
   `Expenditure_ID` int(6) NOT NULL,
   PRIMARY KEY (`Aadhar_No`,`Expenditure_ID`),
-  CONSTRAINT `Manage_Expenditure_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`),
-  CONSTRAINT `Manage_Expenditure_ibfk_2` FOREIGN KEY (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`)
+  CONSTRAINT `Manage_Expenditure_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Manage_Expenditure_ibfk_2` FOREIGN KEY (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -613,8 +613,8 @@ CREATE TABLE `Elect` (
   `Villager_Aadhar_No` char(12) NOT NULL,
   `Panchayat_Member_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`),
-  CONSTRAINT `Elect_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`),
-  CONSTRAINT `Elect_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`)
+  CONSTRAINT `Elect_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Elect_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -645,8 +645,8 @@ CREATE TABLE `Collect` (
   `Panchayat_Member_Aadhar_No` char(12) NOT NULL,
   `ITR_No` char(12) NOT NULL,
   PRIMARY KEY (`Panchayat_Member_Aadhar_No`,`ITR_No`)
-  CONSTRAINT `Collect_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`)
-  CONSTRAINT `Collect_ibfk_1` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`)
+  CONSTRAINT `Collect_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Collect_ibfk_1` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -683,7 +683,7 @@ CREATE TABLE `Crops_Grown` (
   `Yield_Year_4` int,
   `Yield_Year_5` int,
   PRIMARY KEY (`Aadhar_No`,`Serial_No`,`Name_of_Crop`),
-  CONSTRAINT `Crops_Grown_ibfk_1` FOREIGN KEY (`Aadhar_No`,`Serial_No`) REFERENCES `Farmlands` (`Aadhar_No`,`Serial_No`)
+  CONSTRAINT `Crops_Grown_ibfk_1` FOREIGN KEY (`Aadhar_No`,`Serial_No`) REFERENCES `Farmlands` (`Aadhar_No`,`Serial_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -718,10 +718,10 @@ CREATE TABLE `Event_Participation` (
   `Expenditure_ID` int(6) NOT NULL,
 
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`,`Date`,`Name`,`Expenditure_ID`),
-  CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`),
-  CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`),
-  CONSTRAINT `Event_Participation_ibfk_3` FOREIGN KEY (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`),
-  CONSTRAINT `Event_Participation_ibfk_4` FOREIGN KEY (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`)
+  CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_3` FOREIGN KEY (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_4` FOREIGN KEY (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

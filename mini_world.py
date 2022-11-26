@@ -4,11 +4,46 @@ import pymysql.cursors
 
 def add_new_villager():
     """
-    """
-    # hhehehehehehhe
-    # try:
+    This is a function to satisfy one of the INSERT functional requirements.
+    We ask the user to enter relevant data about the new villager.
 
-    # except:
+    """
+    try:
+        row = {}
+        print("Enter new villager's details: ")
+        row["AADHAR"] = input("Please enter the villager's AADHAR Number: ")
+        row["PAN"] = input("Please enter the villager's PAN Number: ")
+        row["Name"] = input("Please enter the villager's name: ")
+        row["Caste"] = input("Please enter the villager's caste/Sect: ")
+        row["Sex"] = input("Please enter the villager's sex: ")
+        row["Age"] = input("Please enter the villager's age: ")
+        row["Phone"] = int(input("Please enter the villager's phone number: "))
+        row["Literacy"] = int(input("Is the villager literate? (Y / N) : "))
+        row["Occupation"] = input("Please enter the villager's occupation (none if not employed): ")
+    
+        if row["Literacy"] == 'n' or row["Literacy"] == 'N':
+            row["Literacy"] = "Illiterate"
+        elif row["Literacy"] == 'y' or row["Literacy"] == 'Y':
+            row["Literacy"] = "Literate"
+        else:
+            raise Exception("Invalid input for Literacy")
+
+        query = "INSERT INTO VILLAGER\
+                (AADHAR, PAN, Name, Caste, Sex, Age, Phone, Literacy, Occupation) \
+                VALUES('%d', '%d', '%s', '%s', '%s', '%d', '%d', %s, %s)" % (
+                row["AADHAR"], row["PAN"], row["Name"], row["Caste"], row["Sex"], \
+                row["Address"], row["Sex"], row["Age"], row["Phone"], row["Literacy"])
+        
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Inserted Into Database")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to insert into database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 
@@ -32,17 +67,6 @@ def upd_num_emp_small_bsnss():
     # except:
 
     return
-
-def add_new_villager():
-    """
-    """
-
-    # try:
-
-    # except:
-
-    return
-
 
 def get_avg_age_villager():
     """

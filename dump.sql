@@ -498,7 +498,7 @@ DROP TABLE IF EXISTS `Tax_Waivers`;
 CREATE TABLE `Tax_Waivers` (
   `Tax_Waiver` int NOT NULL,
   `ITR_No` char(12) NOT NULL,
-  PRIMARY KEY (`Tax_Waiver`,`ITR_No`),
+  PRIMARY KEY (`ITR_No`),
   CONSTRAINT `Tax_Waivers_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -509,7 +509,10 @@ CREATE TABLE `Tax_Waivers` (
 
 LOCK TABLES `Tax_Waivers` WRITE;
 /*!40000 ALTER TABLE `Tax_Waivers` DISABLE KEYS */;
-INSERT INTO `Tax_Waivers` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Tax_Waivers` VALUES 
+(3,'P23456123432'),
+(2,'F23456123424'),
+(10,'B23456123434');
 /*!40000 ALTER TABLE `Tax_Waivers` ENABLE KEYS */;
 UNLOCK TABLES;
 

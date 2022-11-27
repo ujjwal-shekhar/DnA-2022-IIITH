@@ -88,7 +88,7 @@ CREATE TABLE `Panchayat_Members` (
   `Pan_No` char(12) NOT NULL,
   `Years_of_Service` int(2),
   `Ward_No` int(2),
-  `Salary` int(2),
+  `Salary` int(6),
   `Supervisor_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`),
   CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE

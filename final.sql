@@ -373,8 +373,8 @@ INSERT INTO `Irrigation` VALUES
 ('123456123424',1,'Well'),
 ('123456123424',1,'Tubewell'),
 ('123456123441',1,'Well'),
-('123456123441',2'Tubewell'),
-('123456123441',2'Well');
+('123456123441',2,'Tubewell'),
+('123456123441',2,'Well');
 /*!40000 ALTER TABLE `Irrigation` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -2,7 +2,7 @@ import subprocess as sp
 import pymysql
 import pymysql.cursors
 
-def get_non_voters():
+def test_db():
     """
     """
 
@@ -32,7 +32,7 @@ def dispatch(ch):
     """
 
     if(ch == 1):
-        get_non_voters()
+        test_db()
     else:
         print("Error: Invalid Option")
 

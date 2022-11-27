@@ -49,7 +49,7 @@ CREATE TABLE `Villagers` (
 --
 
 LOCK TABLES `Villagers` WRITE;
-/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Villagers` DISABLE KEYS */;
 INSERT INTO `Villagers` VALUES 
 ('123456123411','ABCDEF123411','Dhruv Madan','Brahmin','Male',21,1234567811,'Illiterate','Nurse'),
 ('123456123412','ABCDEF123412','Vasu Sood','Brahmin','Male',50,1234567812,'Illiterate','Farmer'),
@@ -72,7 +72,7 @@ INSERT INTO `Villagers` VALUES
 ('123456123441','ABCDEF123441','Roshan Kota','Dalit','Male',18,1234567841,'Literate','Farmer'),
 ('123456123442','ABCDEF123442','Ayush Sen','Vaishya','Male',21,1234567842,'Literate','Businessman');
 
-/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Villagers` ENABLE KEYS */;
 UNLOCK TABLES;
 -- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
 
@@ -97,7 +97,7 @@ CREATE TABLE `Panchayat_Members` (
 
 
 LOCK TABLES `Panchayat_Members` WRITE;
-/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Panchayat_Members` DISABLE KEYS */;
 INSERT INTO `Panchayat_Members` VALUES 
 /*sarpanch*/
 ('123456123413','ABCDEF123413',22,3,20000,NULL),
@@ -107,7 +107,7 @@ INSERT INTO `Panchayat_Members` VALUES
 ('123456123426','ABCDEF123426',12,4,15000,'1234567813'),
 ('123456123431','ABCDEF123431',22,5,18000,'1234567813'),
 ('123456123432','ABCDEF123432',12,6,15000,'1234567813');
-/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Panchayat_Members` ENABLE KEYS */;
 UNLOCK TABLES;
 
 -- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
@@ -367,10 +367,14 @@ INSERT INTO `Irrigation` VALUES
 ('123456123412',1,'Well'),
 ('123456123413',1,'Canal'),
 ('123456123421',1,'Well'),
+('123456123421',1,'Canal'),
 ('123456123422',1,'Tubewell'),
 ('123456123424',1,'Canal'),
+('123456123424',1,'Well'),
+('123456123424',1,'Tubewell'),
 ('123456123441',1,'Well'),
-('123456123441',2,'Tubewell');
+('123456123441',2,'Tubewell'),
+('123456123441',2,'Well');
 /*!40000 ALTER TABLE `Irrigation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,9 +463,9 @@ DROP TABLE IF EXISTS `Tax_Bracket`;
 CREATE TABLE `Tax_Bracket` (
   `Min_Income` int NOT NULL,
   `Max_Income` int NOT NULL,
-  `Tax_bracket` varchar(30) NOT NULL CHECK (`Tax_Bracket` in ('BPL','Non-BPL')),
+  `Percentage` int(2) NOT NULL,
   PRIMARY KEY (`Min_Income`,`Max_Income`),
-  UNIQUE KEY `Tax_Bracket` (`Tax_Bracket`)
+  UNIQUE KEY `Percentage` (`Percentage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -472,8 +476,8 @@ CREATE TABLE `Tax_Bracket` (
 LOCK TABLES `Tax_Bracket` WRITE;
 /*!40000 ALTER TABLE `Tax_Bracket` DISABLE KEYS */;
 INSERT INTO `Tax_Bracket` VALUES
-(0,50000,'BPL'),
-(50000,100000000,'Non-BPL');
+(0,50000,'0'),
+(50000,100000000,'30');
 /*!40000 ALTER TABLE `Tax_Bracket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -558,7 +562,7 @@ DROP TABLE IF EXISTS `Govt_Schemes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Govt_Schemes` (
   `Aadhar_No` char(12) NOT NULL,
-  `Which` varchar(30) NOT NULL CHECK (`Which` in ('	MGNREGA','PMGSY','DDUGKY','NSAP','SAGY')),
+  `Which` varchar(30) NOT NULL CHECK (Which IN ('MGNREGA','PMGSY','DDUGKY','NSAP','SAGY')),
   `Since_When` date NOT NULL,
   `Benefits_Provided` varchar(100),
   PRIMARY KEY (`Aadhar_no`,`Which`),
@@ -624,26 +628,6 @@ UNLOCK TABLES;
 --
 
 -- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
-
-
-
-
-
---SPACE LEFT FOR MANAGE_SOURCES
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Manage_Expenditure`
@@ -824,10 +808,10 @@ CREATE TABLE `Event_Participation` (
   `Expenditure_ID` int(6) NOT NULL,
 
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`,`Date`,`Name`,`Expenditure_ID`),
-  CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Event_Participation_ibfk_3` FOREIGN KEY (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Event_Participation_ibfk_4` FOREIGN KEY (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY `Event_Participation` (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY `Event_Participation` (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_3` FOREIGN KEY `Event_Participation` (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_4` FOREIGN KEY `Event_Participation` (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -846,9 +830,9 @@ INSERT INTO `Event_Participation` VALUES
 -- '123456123426'
 -- '123456123433'
 -- Expenditure->220202
-(`123456123425`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
-(`123456123426`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
-(`123456123433`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
+('123456123425','123456123412','2022-08-25','Village Fair',220202),
+('123456123426','123456123412','2022-08-25','Village Fair',220202),
+('123456123433','123456123412','2022-08-25','Village Fair',220202),
 
 
 
@@ -859,9 +843,9 @@ INSERT INTO `Event_Participation` VALUES
 -- '123456123412'
 -- '123456123421'
 -- Expenditure ID-> 220203
-(`123456123411`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
-(`123456123412`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
-(`123456123421`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
+('123456123411','123456123426','2022-04-22','COVID Vaccination Drive',220203),
+('123456123412','123456123426','2022-04-22','COVID Vaccination Drive',220203),
+('123456123421','123456123426','2022-04-22','COVID Vaccination Drive',220203),
 
 
 
@@ -872,14 +856,14 @@ INSERT INTO `Event_Participation` VALUES
 -- '123456123412'
 
 -- Expenditure ID-> 220205
-(`123456123411`,`123456123411`,`2022-06-10`,`COVID Vaccination Drive`,220205),
-(`123456123412`,`123456123411`,`2022-06-10`,`COVID Vaccination Drive`,220205),
+('123456123411','123456123411','2022-06-10','COVID Vaccination Drive',220205),
+('123456123412','123456123411','2022-06-10','COVID Vaccination Drive',220205),
 
 
 
 
 -- ('2022-09-21','Dussehra','Dussehra Celebration');
---'123456123431'-Panchayat member
+-- '123456123431'-Panchayat member
 -- Villagers
 -- '123456123434'
 -- '123456123435'
@@ -888,11 +872,11 @@ INSERT INTO `Event_Participation` VALUES
 -- '123456123421'
 
 -- Expenditure->220210
-(`123456123434`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
-(`123456123435`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
-(`123456123436`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
-(`123456123441`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
-(`123456123421`,`123456123431`,`2022-09-21`,`Dussehra`,220210);
+('123456123434','123456123431','2022-09-21','Dussehra',220210),
+('123456123435','123456123431','2022-09-21','Dussehra',220210),
+('123456123436','123456123431','2022-09-21','Dussehra',220210),
+('123456123441','123456123431','2022-09-21','Dussehra',220210),
+('123456123421','123456123431','2022-09-21','Dussehra',220210);
 /*!40000 ALTER TABLE `Event_Participation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -901,6 +885,94 @@ UNLOCK TABLES;
 --
 
 -- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- CROPS GROWN
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
+--
+-- Table structure for table `Crops_Grown`
+--
+DROP TABLE IF EXISTS `Crops_Grown`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Crops_Grown` (
+  `Aadhar_No` char(12) NOT NULL,
+  `Serial_No` int(1) NOT NULL,
+  `Name_of_Crop` varchar(20) NOT NULL CHECK (`Name_of_Crop` in ('Jowar','Bajra','Wheat','Corn','Rice')),
+  `Yield_Year_1` int,
+  `Yield_Year_2` int,
+  `Yield_Year_3` int,
+  `Yield_Year_4` int,
+  `Yield_Year_5` int,
+  PRIMARY KEY (`Aadhar_No`,`Serial_No`,`Name_of_Crop`),
+  CONSTRAINT `Crops_Grown_ibfk_1` FOREIGN KEY (`Aadhar_No`,`Serial_No`) REFERENCES `Farmlands` (`Aadhar_No`,`Serial_No`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Crops_Grown`
+--
+
+LOCK TABLES `Crops_Grown` WRITE;
+/*!40000 ALTER TABLE `Crops_Grown` DISABLE KEYS */;
+INSERT INTO `Crops_Grown` VALUES 
+('123456123412',1,'Rice',100,110,115,119,122),
+
+('123456123413',1,'Jowar',90,100,100,NULL,NULL),
+('123456123413',1,'Bajra',NULL,NULL,NULL,100,200),
+
+('123456123421',1,'Wheat',25,30,70,120,150),
+
+('123456123422',1,'Corn',30,NULL,40,NULL,70),
+('123456123422',1,'Rice',NULL,25,NULL,60,NULL),
+
+('123456123424',1,'Wheat',120,70,150,210,220),
+/*farmlands owned by 41*/
+('123456123441',1,'Rice',20,20,20,20,20),
+('123456123441',2,'Rice',300,400,440,450,NULL),
+('123456123441',2,'Wheat',NULL,NULL,NULL,NULL,450);
+
+/*!40000 ALTER TABLE `Crops_Grown` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
+-- 
+-- Table structure for table `Manage_Sources`
+--
+
+DROP TABLE IF EXISTS `Manage_Sources`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Manage_Sources` (
+    `Panchayat_Member_Aadhar_No` char(12) NOT NULL,
+    `Source_ID` int(6) NOT NULL,
+    PRIMARY KEY (`Panchayat_Member_Aadhar_No`,`Source_ID`),
+    CONSTRAINT `Manage_Sources_ibfk_1` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `Manage_Sources_ibfk_2` FOREIGN KEY (`Source_ID`) REFERENCES `Sources` (`Source_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Manage_Sources`
+--
+
+LOCK TABLES `Manage_Sources` WRITE;
+/*!40000 ALTER TABLE `Manage_Sources` DISABLE KEYS */;
+INSERT INTO `Manage_Sources` VALUES
+('123456123411',220101),
+('123456123413',220101),
+('123456123412',220102),
+('123456123412',220103),
+('123456123413',220103),
+('123456123411',220103),
+('123456123431',220104),
+('123456123431',220105),
+('123456123413',220105),
+('123456123431',220106);
+/*!40000 ALTER TABLE `Manage_Sources` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

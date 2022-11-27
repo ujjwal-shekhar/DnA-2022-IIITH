@@ -27,15 +27,17 @@ def add_new_villager():
         else:
             raise Exception("Invalid input for Literacy")
 
-        query = "INSERT INTO Villagers\
-                (Aadhar_No, Pan_No, Name, Caste, Sex, Age, Phone, Literacy, Occupation) \
-                VALUES('%d', '%d', '%s', '%s', '%s', '%d', '%d', %s, %s)" % (
+        query = """INSERT INTO Villagers
+                (Aadhar_No, Pan_No, Name, Caste, Sex, Age, Phone, Literacy, Occupation)
+                VALUES('%d', '%d', '%s', '%s', '%s', '%d', '%d', %s, %s)""" % (
                 row["AADHAR"], row["PAN"], row["Name"], row["Caste"], row["Sex"], \
                 row["Sex"],  row["Phone"], row["Literacy"], row["Occupation"])
         
         print(query)
         cur.execute(query)
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Inserted Into Database\n")
 
@@ -57,12 +59,14 @@ def delete_small_business():
     row["name"] = input("Enter name of the small business")
 
     try:
-        query = "DELETE FROM `Small_Businesses`\
+        query = "DELETE FROM 'Small_Businesses'\
                  WHERE Aadhar_No = %d AND Name = %s"
 
         print(query)
         cur.execute(query, (row["AADHAR"], row["Name"]))
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Deleted from Database\n")
 
@@ -84,14 +88,16 @@ def upd_num_emp_small_bsnss():
     row["No_of_employees"] = input("Enter the new number of employees : ")
 
     try:
-        query = "UPDATE `Small_Businesses`\
-                 SET No_of_employees = %d\
-                 WHERE Aadhar_No = %d AND Name = %s"
+        query = """UPDATE 'Small_Businesses'
+                 SET No_of_employees = %d
+                 WHERE Aadhar_No = %d AND Name = %s"""
 
         print(query)
         cur.execute(query, (row["No_of_employees"]))
         con.commit()
 
+        printTable(cur.fetchall())
+        
         print("Updated Database!\n")
 
     except Exception as e:
@@ -108,12 +114,14 @@ def get_avg_age_villager():
     """
 
     try:
-        query = "SELECT AVG(Age) AS `Average Age`\
-                FROM VILLAGERS"
+        query = """SELECT AVG(Age) AS 'Average Age'
+                FROM VILLAGERS"""
 
         print(query)
         cur.execute(query)
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched average age of villagers!!\n")
 
@@ -130,12 +138,14 @@ def get_vaccination_events():
     """
 
     try:
-        query = "SELECT * FROM Events \
-                WHERE Purpose LIKE '%Vaccination%'"
+        query = """SELECT * FROM Events 
+                WHERE Purpose LIKE '%Vaccination%'"""
 
         print(query)
         cur.execute(query)
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched query!!\n")
 
@@ -152,15 +162,17 @@ def get_nurse_data():
     """
 
     try:
-        query = "SELECT Aadhar_No, Name, Age, Sex, Phone_No\
-                FROM Villagers\
-                WHERE Occupation\
-                LIKE '%Nurse%'"
+        query = """SELECT Aadhar_No, Name, Age, Sex, Phone_No
+                FROM Villagers
+                WHERE Occupation
+                LIKE '%Nurse%'"""
 
         print(query)
         cur.execute(query)
         
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched query!!\n")
 
@@ -179,16 +191,18 @@ def get_large_farm_owners():
     LARGE_FARM_CUTOFF = int(input("Enter the cutoff for a large farm (in sq. m) : ")) #sq-m
 
     try:
-        query = "SELECT Villagers.Aadhar_No AS `AADHAR No.`,\
-                 Villagers.Name AS `Owner Name`,\
-                 Farmlands.Area AS `Land Size` \
-                 FROM Villagers INNER JOIN Farmlands \
-                 ON Farmlands.Aadhar_No = Villagers.Aadhar_No\
-                 WHERE Farmlands.Area >= ?"
+        query = """SELECT Villagers.Aadhar_No AS 'AADHAR No.',
+                 Villagers.Name AS 'Owner Name',
+                 Farmlands.Area AS 'Land Size' 
+                 FROM Villagers INNER JOIN Farmlands
+                 ON Farmlands.Aadhar_No = Villagers.Aadhar_No
+                 WHERE Farmlands.Area >= ?"""
 
         print(query)
         cur.execute(query, (LARGE_FARM_CUTOFF))
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched query!!\n")
 
@@ -206,15 +220,17 @@ def get_income_vs_caste():
     """
 
     try:
-        query = "SELECT Villagers.Caste_or_Sect AS `Caste`,\
-                 AVG(Taxation.Total_Income) AS `Average Income`\
-                 FROM Villagers, Taxation\
-                 WHERE Villagers.Aadhar_No = Taxation.Aadhar_No\
-                 GROUP BY Villagers.Caste_or_Sect"
+        query = """SELECT Villagers.Caste_or_Sect AS 'Caste',
+                 AVG(Taxation.Total_Income) AS 'Average Income'
+                 FROM Villagers, Taxation
+                 WHERE Villagers.Aadhar_No = Taxation.Aadhar_No
+                 GROUP BY Villagers.Caste_or_Sect"""
 
         print(query)
         cur.execute(query)
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched query!!\n")
 
@@ -242,17 +258,19 @@ def get_ppl_availing_MGNREGA():
     """
 
     try:
-        query = "SELECT Govt_Schemes.Which AS `Scheme Name`,\
-                 Govt_Schemes.Since_When AS `Time since in effect`,\
-                 Govt_Schemes.Benefits_Provided AS `Benefits`\
-                 Villagers.Name AS `Beneficiary Name`\
-                 FROM Gove_Schemes INNER JOIN Villagers ON\
-                 Villagers.Aadhar_No = Govt_Schemes.Aadhar_No\
-                 WHERE Govt_Schemes.Name LIKE '%MGNREGA%'" 
+        query = """SELECT Govt_Schemes.Which AS 'Scheme Name',
+                 Govt_Schemes.Since_When AS 'Time since in effect',
+                 Govt_Schemes.Benefits_Provided AS 'Benefits',
+                 Villagers.Name AS 'Beneficiary Name'
+                 FROM Govt_Schemes INNER JOIN Villagers ON
+                 Villagers.Aadhar_No = Govt_Schemes.Aadhar_No
+                 WHERE Govt_Schemes.Which LIKE '%MGNREGA%'"""
 
         print(query)
         cur.execute(query)
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched query!!\n")
 
@@ -275,6 +293,8 @@ def get_major_sources():
         cur.execute(query, (LARGE_SOURCE_CUTOFF))
         con.commit()
 
+        printTable(cur.fetchall())
+
         print("Fetched query!!\n")
 
     except Exception as e:
@@ -292,26 +312,28 @@ def complex_query_1():
     """
 
     try:
-        query = "\
-                SELECT\
-                    Panchayat_Members.Aadhar_No AS `AADHAR INFO`, \
-                    Villagers.Name AS `Panchayat Member Name`,\
-                    Panchayat_Members.Salary AS `Salary`,\
-                    Panchayat_Members.Years_Of_Service AS `Years of Service`,\
-                    Taxation.Tax_Waiver AS `Tax Waiver Recieved`,\
-                    Farmlands.Area AS `Farmland Area`\
-                FROM Panchayat_Members, Villagers, Farmlands, Tax_Waivers, Taxation\
-                WHERE \
-                    Panchayat_Members.Aadhar_No = Villagers.Aadhar_No\
-                    AND Panchayat_Members.Aadhar_No = Taxation.Aadhar_No\
-                    AND Taxation.ITR_No = Tax_Waivers.ITR_No\
-                    AND Farmlands.Aadhar_No = Panchayat_Members.Aadhar_No\
-                    AND Farmlands.Area >= 1000\
-                "
+        query = """
+                SELECT
+                    Panchayat_Members.Aadhar_No AS 'AADHAR INFO',
+                    Villagers.Name AS 'Panchayat Member Name',
+                    Panchayat_Members.Salary AS 'Salary',
+                    Panchayat_Members.Years_Of_Service AS 'Years of Service',
+                    Tax_Waivers.Tax_Waiver AS 'Tax Waiver Recieved',
+                    Farmlands.Area AS 'Farmland Area'
+                FROM Panchayat_Members, Villagers, Farmlands, Tax_Waivers, Taxation
+                WHERE
+                    Panchayat_Members.Aadhar_No = Villagers.Aadhar_No
+                    AND Panchayat_Members.Aadhar_No = Taxation.Aadhar_No
+                    AND Taxation.ITR_No = Tax_Waivers.ITR_No
+                    AND Farmlands.Aadhar_No = Panchayat_Members.Aadhar_No
+                    AND Farmlands.Area >= 1000
+                """
 
         print(query)
         cur.execute(query)
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched query!!\n")
 
@@ -330,20 +352,22 @@ def complex_query_2():
     """
 
     try:
-        query = "\
-                SELECT\
-                    Villagers.Name AS Name\
-                    Villagers.Age AS Age\
-                    Taxation.Total_Income AS `Current Income`\
-                FROM Villagers, Taxation\
-                WHERE\
-                    Villagers.Aadhar_No = Taxation.Aadhar_No\
-                    Taxation.Total_Income <> 0\
-                "
+        query = """
+                SELECT
+                    Villagers.Name AS Name
+                    Villagers.Age AS Age
+                    Taxation.Total_Income AS 'Current Income'
+                FROM Villagers, Taxation
+                WHERE
+                    Villagers.Aadhar_No = Taxation.Aadhar_No
+                    Taxation.Total_Income <> 0
+                """
 
         print(query)
         cur.execute(query)
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched query!!\n")
 
@@ -372,6 +396,8 @@ def complex_query_3():
     #     cur.execute(query)
     #     con.commit()
 
+    printTable(cur.fetchall())
+
     #     print("Fetched query!!")
 
     # except Exception as e:
@@ -386,21 +412,23 @@ def get_non_voters():
     """
 
     try:
-        query = "\
-                SELECT\
-                    Villagers.Aadhar_No AS `Non-Voter AADHAR NUMBER`\
-                    Villagers.Name AS `Non-Voter Name`\
-                FROM Villagers\
-                WHERE\
-                    Villagers.Aadhar_No IS NOT IN (\
-                        SELECT Elect.Villager_Aadhar_No\
-                        FROM Elect\
-                    )\
-                "
+        query = """
+                SELECT
+                    Villagers.Aadhar_No AS `Non-Voter AADHAR NUMBER`,
+                    Villagers.Name AS `Non-Voter Name`
+                FROM Villagers
+                WHERE
+                    Villagers.Aadhar_No NOT IN (
+                        SELECT Elect.Villager_Aadhar_No
+                        FROM Elect
+                    )
+                """
 
         print(query)
         cur.execute(query)
         con.commit()
+
+        printTable(cur.fetchall())
 
         print("Fetched query!!\n")
 
@@ -432,7 +460,7 @@ def dispatch(ch):
     if(ch == 1):
         get_nurse_data()
     elif(ch == 2):
-        get_avg_age_villager()
+        complex_query_1()
     elif(ch == 3):
         get_non_voters()
     elif(ch == 4):
@@ -482,7 +510,7 @@ while(1):
                     exit()
                 else:
                     dispatch(ch)
-                    printTable(cur.fetchall())
+                    # printTable(cur.fetchall())
                     tmp = input("Enter any key to CONTINUE>")
 
     except Exception as e:

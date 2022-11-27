@@ -246,9 +246,22 @@ def get_ppl_in_age_group():
     """
     """
 
-    # try:
+    try:
+        query = """SELECT Age_Group, COUNT(*) AS 'Number of People'  FROM Age_Demography GROUP BY Age_Group"""
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        printTable(cur.fetchall())
+
+        print("Fetched query!!\n")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 

@@ -20,43 +20,6 @@ DROP DATABASE IF EXISTS `DnA_PP4`;
 CREATE SCHEMA `DnA_PP4`;
 USE `DnA_PP4`;
 
-
--------------------------------------------------------------------- RU START ------------------------------------------------------------------------
---
--- Table structure for table `Religion_and_Caste`
---
-DROP TABLE IF EXISTS `Religion_and_Caste`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Religion_and_Caste` (
-  `Caste_or_Sect` varchar(30) NOT NULL,
-  `Religion` varchar(30) NOT NULL,
-  PRIMARY KEY (`Caste_or_Sect`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Religion_and_Caste`
---
-
-LOCK TABLES `Religion_and_Caste` WRITE;
-/*!40000 ALTER TABLE `Religion_and_Caste` DISABLE KEYS */;
-INSERT INTO `Religion_and_Caste` VALUES 
-/sarpanch/
-('Brahmin','Hindu'),
-('Kadia','Muslim'),
-('Nair','Hindu'),
-('Dalit','Hindu'),
-('Mahuri','Hindu'),
-('Halba','Tribal'),
-('Vaishya','Hindu'),
-('Kshatriya','Hindu'),
-('Iyer','Hindu');
-/*!40000 ALTER TABLE `Religion_and_Caste` ENABLE KEYS */;
-UNLOCK TABLES;
-
--------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Villagers`
@@ -172,7 +135,7 @@ CREATE TABLE `Taxation` (
 --
 
 LOCK TABLES `Taxation` WRITE;
-/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Taxation` DISABLE KEYS */;
 INSERT INTO `Taxation` VALUES 
 /*personal_taxes*/
 ('P23456123411','Personal',150000,50000,'123456123411'),
@@ -211,15 +174,14 @@ INSERT INTO `Taxation` VALUES
 ('B23456123434','Business',400000,100000,'123456123434'),
 ('B23456123442','Business',600000,150000,'123456123442'),
 
-/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Taxation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Taxation`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Expenditure`
@@ -245,7 +207,7 @@ LOCK TABLES `Expenditure` WRITE;
 /*!40000 ALTER TABLE `Expenditure` DISABLE KEYS */;
 INSERT INTO `Expenditure` VALUES 
 (220201,30000,'Shauchalay Abhiyan','2022-02-15','Past'),
-(220202,39000,'Polio Vaccination 2022','2022-04-06','Ongoing'),
+(220202,39000,'Village Fair','2022-08-06','Past'),
 (220203,23500,'COVID Vaccination Dose 1','2022-05-09','Past'), 
 (220204,15700,'Hospital Road reconstruction','2023-05-25','Future'),
 (220205,35000,'COVID Vaccination Dose 2','2022-07-21','Past'),
@@ -253,7 +215,7 @@ INSERT INTO `Expenditure` VALUES
 (220207,11000,'Earthquake Repairs','2022-07-21','Past'),
 (220208,18300,'Solar Panel Construction','2023-08-26','Future'),
 (220209,9300,'Jail Construction','2022-10-21','Ongoing'),
-(220210,30500,'Navratri','2022-12-19','Past'),
+(220210,30500,'Dussehra','2022-09-01','Past'),
 (220211,12000 ,'Drinking Water Taps','2022-03-21','Ongoing');
 /*!40000 ALTER TABLE `Expenditure` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -286,7 +248,7 @@ CREATE TABLE `Farmlands` (
 --
 
 LOCK TABLES `Farmlands` WRITE;
-/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Farmlands` DISABLE KEYS */;
 INSERT INTO `Farmlands` VALUES 
 ('123456123412',1,500,'F23456123412'),
 ('123456123413',1,400,'F23456123413'),
@@ -296,16 +258,15 @@ INSERT INTO `Farmlands` VALUES
 /*farmlands owned by 41*/
 ('123456123441',1,1000,'F23456123441'),
 ('123456123441',2,5000,'F33456123441');
-/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Farmlands` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Farmlands`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Small_Businesses`
@@ -330,20 +291,19 @@ CREATE TABLE `Small_Businesses` (
 --
 
 LOCK TABLES `Small_Businesses` WRITE;
-/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Small_Businesses` DISABLE KEYS */;
 INSERT INTO `Small_Businesses` VALUES 
 ('123456123416','Sunny Electronics','Electronics',2,'Electricity','B23456123416'),
 ('123456123434','Halder Fabrics','Clothes',10,'Electricity','B23456123434'),
 ('123456123442','Evergreen Sweets','Food',20,'Ration Subsidy','B23456123442');
-/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Small_Businesses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Small_Businesses`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Sources`
@@ -377,11 +337,10 @@ INSERT INTO `Sources` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Sources`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Irrigation`
@@ -411,16 +370,50 @@ INSERT INTO `Irrigation` VALUES
 ('123456123422',1,'Tubewell'),
 ('123456123424',1,'Canal'),
 ('123456123441',1,'Well'),
-('123456123441',2'Tubewell');
+('123456123441',2,'Tubewell');
 /*!40000 ALTER TABLE `Irrigation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Irrigation`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
+-------------------------------------------------------------------- RU START ------------------------------------------------------------------------
+--
+-- Table structure for table `Religion_and_Caste`
+--
+DROP TABLE IF EXISTS `Religion_and_Caste`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Religion_and_Caste` (
+  `Caste_or_Sect` varchar(30) NOT NULL,
+  `Religion` varchar(30) NOT NULL,
+  PRIMARY KEY (`Caste_or_Sect`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `Religion_and_Caste`
+--
+
+LOCK TABLES `Religion_and_Caste` WRITE;
+/*!40000 ALTER TABLE `Religion_and_Caste` DISABLE KEYS */;
+INSERT INTO `Religion_and_Caste` VALUES 
+/sarpanch/
+('Brahmin','Hindu'),
+('Kadia','Muslim'),
+('Nair','Hindu'),
+('Dalit','Hindu'),
+('Mahuri','Hindu'),
+('Halba','Tribal'),
+('Vaishya','Hindu'),
+('Kshatriya','Hindu'),
+('Iyer','Hindu');
+/*!40000 ALTER TABLE `Religion_and_Caste` ENABLE KEYS */;
+UNLOCK TABLES;
+
+-------------------------------------------------------------------- RU END ------------------------------------------------------------------------
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Age_Group`
@@ -452,11 +445,10 @@ INSERT INTO `Age_Group` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Age_group`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Tax_Bracket`
@@ -486,7 +478,9 @@ INSERT INTO `Tax_Bracket` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Tax_Bracket`
+--
+-------------------------------------------------------------------- RU END------------------------------------------------------------------------
 --
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
@@ -517,11 +511,10 @@ INSERT INTO `Tax_Waivers` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Tax_Waivers`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Events`
@@ -552,11 +545,10 @@ INSERT INTO `Events` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Events`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Govt_Schemes`
@@ -589,11 +581,10 @@ INSERT INTO `Govt_Schemes` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Govt_Schemes`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Sponsors`
@@ -629,42 +620,29 @@ INSERT INTO `Sponsors` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Sponsors`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
 
--------------------------------------------------------------------- RU START ------------------------------------------------------------------------
---
--- Table structure for table `Manage_Sources`
---
-DROP TABLE IF EXISTS `Manage_Sources`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Manage_Sources` (
-  `Aadhar_No` char(12) NOT NULL,
-  `Source_ID` int(6) NOT NULL,
-  PRIMARY KEY (`Aadhar_No`,`Source_ID`),
-  CONSTRAINT `Manage_Sources_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Manage_Sources_ibfk_2` FOREIGN KEY (`Source_ID`) REFERENCES `Sources` (`Source_ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `Manage_Sources`
---
 
-LOCK TABLES `Manage_Sources` WRITE;
-/*!40000 ALTER TABLE `Manage_Sources` DISABLE KEYS */;
-INSERT INTO `Manage_Sources` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
-/*!40000 ALTER TABLE `Manage_Sources` ENABLE KEYS */;
-UNLOCK TABLES;
 
---
--- Table structure for table `DEPENDENT`
---
 
--------------------------------------------------------------------- RU END ------------------------------------------------------------------------
+--SPACE LEFT FOR MANAGE_SOURCES
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
@@ -700,7 +678,7 @@ INSERT INTO `Manage_Expenditure` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Manage_Expenditure`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
@@ -762,7 +740,7 @@ INSERT INTO `Elect` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Elect`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
@@ -827,48 +805,10 @@ INSERT INTO `Collect` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Collect`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
--------------------------------------------------------------------- RU START ------------------------------------------------------------------------
---
--- Table structure for table `Crops_Grown`
---
-DROP TABLE IF EXISTS `Crops_Grown`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Crops_Grown` (
-  `Aadhar_No` char(12) NOT NULL,
-  `Serial_No` int(1) NOT NULL,
-  `Name_of_Crop` varchar(20) NOT NULL CHECK (`Name_of_Crop` in ('Jowar','Bajra','Wheat','Corn','Rice')),
-  `Yield_Year_1` int,
-  `Yield_Year_2` int,
-  `Yield_Year_3` int,
-  `Yield_Year_4` int,
-  `Yield_Year_5` int,
-  PRIMARY KEY (`Aadhar_No`,`Serial_No`,`Name_of_Crop`),
-  CONSTRAINT `Crops_Grown_ibfk_1` FOREIGN KEY (`Aadhar_No`,`Serial_No`) REFERENCES `Farmlands` (`Aadhar_No`,`Serial_No`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `DEPARTMENT`
---
-
-LOCK TABLES `Crops_Grown` WRITE;
-/*!40000 ALTER TABLE `Crops_Grown` DISABLE KEYS */;
-INSERT INTO `Crops_Grown` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
-/*!40000 ALTER TABLE `Crops_Grown` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `DEPENDENT`
---
-
--------------------------------------------------------------------- RU END ------------------------------------------------------------------------
-
 -------------------------------------------------------------------- RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Event_Participation`
@@ -897,12 +837,67 @@ CREATE TABLE `Event_Participation` (
 
 LOCK TABLES `Event_Participation` WRITE;
 /*!40000 ALTER TABLE `Event_Participation` DISABLE KEYS */;
-INSERT INTO `Event_Participation` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Event_Participation` VALUES 
+--(`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`,`Date`,`Name`,`Expenditure_ID`)
+-- ('2022-08-25','Village Fair','Fair organized for villagers'),
+--'123456123412'-Panchayat member
+--Villagers
+--'123456123425'
+--'123456123426'
+--'123456123433'
+--Expenditure->220202
+(`123456123425`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
+(`123456123426`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
+(`123456123433`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
+
+
+
+-- ('2022-04-22','COVID Vaccination Drive','Vaccination Drive for 1st dose of COVID Vaccine'),
+--'123456123426'-Panchayat member
+--Villagers
+--'123456123411'
+--'123456123412'
+--'123456123421'
+--Expenditure ID-> 220203
+(`123456123411`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
+(`123456123412`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
+(`123456123421`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
+
+
+
+-- ('2022-06-10','COVID Vaccination Drive','Vaccination Drive for 2nd dose of COVID Vaccine'),
+--'123456123411'-Panchayat member
+--Villagers
+--'123456123411'
+--'123456123412'
+
+--Expenditure ID-> 220205
+(`123456123411`,`123456123411`,`2022-06-10`,`COVID Vaccination Drive`,220205),
+(`123456123412`,`123456123411`,`2022-06-10`,`COVID Vaccination Drive`,220205),
+
+
+
+
+-- ('2022-09-21','Dussehra','Dussehra Celebration');
+--'123456123431'-Panchayat member
+--Villagers
+--'123456123434'
+--'123456123435'
+--'123456123436'
+--'123456123441'
+--'123456123421'
+
+--Expenditure->220210
+(`123456123434`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
+(`123456123435`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
+(`123456123436`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
+(`123456123441`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
+(`123456123421`,`123456123431`,`2022-09-21`,`Dussehra`,220210);
 /*!40000 ALTER TABLE `Event_Participation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `DEPENDENT`
+-- Table structure for table `Crops_Grown`
 --
 
 -------------------------------------------------------------------- RU END ------------------------------------------------------------------------

@@ -883,7 +883,7 @@ INSERT INTO `Event_Participation` VALUES
 
 
 -- ('2022-09-21','Dussehra','Dussehra Celebration');
---'123456123431'-Panchayat member
+-- '123456123431'-Panchayat member
 -- Villagers
 -- '123456123434'
 -- '123456123435'

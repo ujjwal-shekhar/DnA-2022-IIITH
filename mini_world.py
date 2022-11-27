@@ -496,20 +496,6 @@ def get_second_dose_defaulters():
     """
 
     try:
-        # query = """
-        #         SELECT
-        #             Villagers.Name AS 'Defaulter Name',
-        #             Villagers.Aadhar_No AS 'Defaulter Aadhar No'
-        #         FROM 
-        #             Event_Participation
-        #         INNER JOIN
-        #             Villagers
-        #         ON 
-        #             Villagers.Aadhar_No = Event_Participation.Villager_Aadhar_No
-        #         WHERE
-        #             Event_Participation.Date = '2022-04-22'
-                            
-        #         """
 
         query = """
                 SELECT 
@@ -592,6 +578,8 @@ def dispatch(ch):
         complex_query_3()
     elif(ch == 14):
         get_non_voters()
+    elif(ch == 15):
+        get_second_dose_defaulters()
     else:
         print("Error: Invalid Option")
 
@@ -639,10 +627,11 @@ while(1):
                 print("12. List number of employed women above the age of 30")
                 print("13. List details of people with names starting with \"A\" and are in the top 30 percent of tax payers")
                 print("14. List details of people who didn't vote.")
-                print("15. Logout")
+                print("15. List details of people who didn't take the 2nd dose of a vaccine.")
+                print("16. Logout")
                 ch = int(input("Enter choice> "))
                 tmp = sp.call('clear', shell=True)
-                if ch == 15:
+                if ch == 16:
                     exit()
                 else:
                     dispatch(ch)

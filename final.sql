@@ -905,6 +905,59 @@ UNLOCK TABLES;
 --
 
 -- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- CROPS GROWN
+-------------------------------------------------------------------- RU START ------------------------------------------------------------------------
+--
+-- Table structure for table `Crops_Grown`
+--
+DROP TABLE IF EXISTS `Crops_Grown`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Crops_Grown` (
+  `Aadhar_No` char(12) NOT NULL,
+  `Serial_No` int(1) NOT NULL,
+  `Name_of_Crop` varchar(20) NOT NULL CHECK (`Name_of_Crop` in ('Jowar','Bajra','Wheat','Corn','Rice')),
+  `Yield_Year_1` int,
+  `Yield_Year_2` int,
+  `Yield_Year_3` int,
+  `Yield_Year_4` int,
+  `Yield_Year_5` int,
+  PRIMARY KEY (`Aadhar_No`,`Serial_No`,`Name_of_Crop`),
+  CONSTRAINT `Crops_Grown_ibfk_1` FOREIGN KEY (`Aadhar_No`,`Serial_No`) REFERENCES `Farmlands` (`Aadhar_No`,`Serial_No`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Crops_Grown`
+--
+
+LOCK TABLES `Crops_Grown` WRITE;
+/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
+INSERT INTO `Crops_Grown` VALUES 
+('123456123412',1,'Rice',100,110,115,119,122),
+
+('123456123413',1,'Jowar',90,100,100,NULL,NULL),
+('123456123413',1,'Bajra',NULL,NULL,NULL,100,200),
+
+('123456123421',1,'Wheat',25,30,70,120,150),
+
+('123456123422',1,'Corn',30,NULL,40,NULL,70),
+('123456123422',1,'Rice',NULL,25,NULL,60,NULL),
+
+('123456123424',1,'Wheat',120,70,150,210,220),
+/*farmlands owned by 41*/
+('123456123441',1,'Rice',20,20,20,20,20),
+('123456123441',2,'Rice',300,400,440,450,NULL);
+('123456123441',2,'Wheat',NULL,NULL,NULL,NULL,450);
+
+/*!40000 ALTER TABLE `Crops_Grown` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+
+
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -61,7 +61,7 @@ INSERT INTO `Villagers` VALUES
 ('123456123422','ABCDEF123422','Sona Bhattacharyya','Halba','Female',27,1234567822,'Literate','Farmer'),
 ('123456123423','ABCDEF123423','Dipali Dora','Dalit','Female',38,1234567823,'Illiterate','Manager'),
 ('123456123424','ABCDEF123424','Radha Bhatia','Mahuri','Female',29,1234567824,'Illiterate','Farmer'),
-('123456123425','ABCDEF123425','Durga Mathur','Iyer','Female',45,1234567825,'Literate','Housewife'),
+('123456123425','ABCDEF123425','Durga Mathur','Iyer','Female',45,1234567825,'Literate', 'None'),
 ('123456123426','ABCDEF123426','Lal Dayal','Brahmin','Male',47,1234567826,'Literate','Teacher'),
 ('123456123431','ABCDEF123431','Akhil Dey','Dalit','Male',67,1234567831,'Illiterate','Teacher'),
 ('123456123432','ABCDEF123432','Abhilash Salvi','Vaishya','Male',90,1234567832,'Illiterate','Principal'),
@@ -91,7 +91,7 @@ CREATE TABLE `Panchayat_Members` (
   `Salary` int(6),
   `Supervisor_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`),
-  CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -251,7 +251,7 @@ LOCK TABLES `Farmlands` WRITE;
 /*!40000 ALTER TABLE `Farmlands` DISABLE KEYS */;
 INSERT INTO `Farmlands` VALUES 
 ('123456123412',1,500,'F23456123412'),
-('123456123413',1,400,'F23456123413'),
+('123456123413',1,1500,'F23456123413'),
 ('123456123421',1,300,'F23456123421'),
 ('123456123422',1,150,'F23456123422'),
 ('123456123424',1,200,'F23456123424'),
@@ -509,7 +509,7 @@ LOCK TABLES `Tax_Waivers` WRITE;
 /*!40000 ALTER TABLE `Tax_Waivers` DISABLE KEYS */;
 INSERT INTO `Tax_Waivers` VALUES 
 (3,'P23456123432'),
-(2,'F23456123424'),
+(2,'F23456123413'),
 (10,'B23456123434');
 /*!40000 ALTER TABLE `Tax_Waivers` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -639,7 +639,7 @@ CREATE TABLE `Manage_Expenditure` (
   `Aadhar_No` char(12) NOT NULL,
   `Expenditure_ID` int(6) NOT NULL,
   PRIMARY KEY (`Aadhar_No`,`Expenditure_ID`),
-  CONSTRAINT `Manage_Expenditure_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Manage_Expenditure_ibfk_1` FOREIGN KEY (`Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `Manage_Expenditure_ibfk_2` FOREIGN KEY (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -679,7 +679,7 @@ CREATE TABLE `Elect` (
   `Villager_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`),
   CONSTRAINT `Elect_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Elect_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Elect_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -741,7 +741,7 @@ CREATE TABLE `Collect` (
   `ITR_No` char(12) NOT NULL,
   PRIMARY KEY (`Panchayat_Member_Aadhar_No`,`ITR_No`),
   CONSTRAINT `Collect_ibfk_1` FOREIGN KEY (`ITR_No`) REFERENCES `Taxation` (`ITR_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Collect_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Collect_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -809,7 +809,7 @@ CREATE TABLE `Event_Participation` (
 
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`,`Date`,`Name`,`Expenditure_ID`),
   CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY `Event_Participation` (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY `Event_Participation` (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY `Event_Participation` (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `Event_Participation_ibfk_3` FOREIGN KEY `Event_Participation` (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Event_Participation_ibfk_4` FOREIGN KEY `Event_Participation` (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -946,7 +946,7 @@ CREATE TABLE `Manage_Sources` (
     `Panchayat_Member_Aadhar_No` char(12) NOT NULL,
     `Source_ID` int(6) NOT NULL,
     PRIMARY KEY (`Panchayat_Member_Aadhar_No`,`Source_ID`),
-    CONSTRAINT `Manage_Sources_ibfk_1` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `Manage_Sources_ibfk_1` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT `Manage_Sources_ibfk_2` FOREIGN KEY (`Source_ID`) REFERENCES `Sources` (`Source_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -972,6 +972,20 @@ INSERT INTO `Manage_Sources` VALUES
 UNLOCK TABLES;
 
 -- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+CREATE VIEW Tax_Details AS
+SELECT Villagers.Name,Taxation.ITR_No,Tax_Bracket.Percentage, IFNULL(Tax_Waivers.Tax_Waiver,0) AS Tax_Waiver, ((Tax_Bracket.Percentage - IFNULL(Tax_Waivers.Tax_Waiver,0))*Taxation.Total_Income/100) AS Tax_Amount
+FROM Villagers,Tax_Bracket,(Taxation LEFT OUTER JOIN Tax_Waivers ON Tax_Waivers.ITR_No=Taxation.ITR_No)
+WHERE Taxation.Total_Income>=Min_Income AND Taxation.Total_Income<Max_Income AND Taxation.Aadhar_No=Villagers.Aadhar_No;
+
+CREATE VIEW Age_Demography AS
+SELECT Villagers.Name, Villagers.Age, Age_Group.Age_Group
+FROM Villagers, Age_Group
+WHERE Villagers.Age>=Min_Age AND Villagers.Age<Max_Age;
+
+
+
+
+
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

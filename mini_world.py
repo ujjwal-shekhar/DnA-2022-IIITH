@@ -15,10 +15,10 @@ def add_new_villager():
         row["Name"] = input("Please enter the villager's name: ")
         row["Caste"] = input("Please enter the villager's caste/Sect: ")
         row["Sex"] = input("Please enter the villager's sex: ")
-        row["Age"] = input("Please enter the villager's age: ")
+        row["Age"] = int(input("Please enter the villager's age: "))
         row["Phone"] = int(input("Please enter the villager's phone number: "))
         row["Literacy"] = input("Is the villager literate? (Y / N) : ")
-        row["Occupation"] = input("Please enter the villager's occupation (none if not employed): ")
+        row["Occupation"] = input("Please enter the villager's occupation (None (case-sensitive) if not employed): ")
     
         if row["Literacy"] == 'n' or row["Literacy"] == 'N':
             row["Literacy"] = "Illiterate"
@@ -28,16 +28,14 @@ def add_new_villager():
             raise Exception("Invalid input for Literacy")
 
         query = """INSERT INTO Villagers
-                (Aadhar_No, Pan_No, Name, Caste, Sex, Age, Phone, Literacy, Occupation)
-                VALUES('%d', '%d', '%s', '%s', '%s', '%d', '%d', %s, %s)""" % (
+                (Aadhar_No, Pan_No, Name, Caste_or_Sect, Sex, Age, Phone_No, Literacy, Occupation)
+                VALUES('%s', '%s', '%s', '%s', '%s', '%d', '%d', '%s', '%s')""" % (
                 row["AADHAR"], row["PAN"], row["Name"], row["Caste"], row["Sex"], \
-                row["Sex"],  row["Phone"], row["Literacy"], row["Occupation"])
+                row["Age"],  row["Phone"], row["Literacy"], row["Occupation"])
         
         print(query)
         cur.execute(query)
         con.commit()
-
-        printTable(cur.fetchall())
 
         print("Inserted Into Database\n")
 
@@ -54,19 +52,17 @@ def delete_small_business():
     We will delete small business data
     """
 
-    row ={}
-    row["AADHAR"] = input("Enter small business owner's AADHAR Number")
-    row["name"] = input("Enter name of the small business")
-
     try:
-        query = "DELETE FROM 'Small_Businesses'\
-                 WHERE Aadhar_No = %d AND Name = %s"
+        row = {}
+        row["AADHAR"] = input("Enter small business owner's AADHAR Number : ")
+        row["Name"] = input("Enter name of the small business : ")
 
-        print(query)
-        cur.execute(query, (row["AADHAR"], row["Name"]))
+        query = """DELETE FROM `Small_Businesses`
+                 WHERE Aadhar_No = '%s' AND Name = '%s'""" % (row["AADHAR"], row["Name"])
+
+        print(query, (row["AADHAR"], row["Name"]))
+        cur.execute(query)
         con.commit()
-
-        printTable(cur.fetchall())
 
         print("Deleted from Database\n")
 
@@ -83,20 +79,22 @@ def upd_num_emp_small_bsnss():
     """
 
     row = {}
-    row["AADHAR"] = input("Enter small business owner's AADHAR Number")
-    row["name"] = input("Enter name of the small business")
-    row["No_of_employees"] = input("Enter the new number of employees : ")
+    row["AADHAR"] = input("Enter small business owner's AADHAR Number : ")
+    row["Name"] = input("Enter name of the small business : ")
+    row["No_of_employees"] = int(input("Enter the new number of employees : "))
 
     try:
-        query = """UPDATE 'Small_Businesses'
-                 SET No_of_employees = %d
-                 WHERE Aadhar_No = %d AND Name = %s"""
+        query = """UPDATE `Small_Businesses`
+                 SET No_of_employees = '%d'
+                 WHERE Aadhar_No = '%s' AND Name = '%s'""" %(
+                    row["No_of_employees"], row["AADHAR"], row["Name"]
+                 )
 
         print(query)
-        cur.execute(query, (row["No_of_employees"]))
+        cur.execute(query)
         con.commit()
 
-        printTable(cur.fetchall())
+        #printTable(cur.fetchall())
         
         print("Updated Database!\n")
 
@@ -115,7 +113,7 @@ def get_avg_age_villager():
 
     try:
         query = """SELECT AVG(Age) AS 'Average Age'
-                FROM VILLAGERS"""
+                FROM Villagers"""
 
         print(query)
         cur.execute(query)
@@ -192,14 +190,15 @@ def get_large_farm_owners():
 
     try:
         query = """SELECT Villagers.Aadhar_No AS 'AADHAR No.',
+                 Farmlands.Serial_No AS 'Farmland No',
                  Villagers.Name AS 'Owner Name',
                  Farmlands.Area AS 'Land Size' 
                  FROM Villagers INNER JOIN Farmlands
                  ON Farmlands.Aadhar_No = Villagers.Aadhar_No
-                 WHERE Farmlands.Area >= ?"""
+                 WHERE Farmlands.Area >= '%d'"""%(LARGE_FARM_CUTOFF)
 
         print(query)
-        cur.execute(query, (LARGE_FARM_CUTOFF))
+        cur.execute(query)
         con.commit()
 
         printTable(cur.fetchall())
@@ -287,10 +286,10 @@ def get_major_sources():
     """
     LARGE_SOURCE_CUTOFF = int(input("Enter the cutoff for being a major source : "))
     try:
-        query = "SELECT * FROM Sources WHERE Sources.Amount >= ?" 
+        query = "SELECT * FROM Sources WHERE Sources.Amount >= '%d'"%(LARGE_SOURCE_CUTOFF)
 
         print(query)
-        cur.execute(query, (LARGE_SOURCE_CUTOFF))
+        cur.execute(query)
         con.commit()
 
         printTable(cur.fetchall())
@@ -387,25 +386,33 @@ def complex_query_3():
     This will help analyzing name v/s tax payer demographic.
     """
 
-    # try:
-    #     query = "\
-    #             SELECT\
-    #                 Villagers.Name AS Name,\
-    #                 \
-    #             "
+    try:
+        # query = """
+        #         SELECT TOP(30) PERCENT
+        #             Villagers.Name AS 'Tax Payer Name',
+        #             `Tax_Details.Tax_Amount`
+        #         FROM 
+        #             Villagers, Tax_Details, Taxation
+        #         WHERE 
+        #             Villagers.Aadhar_No = Taxation.Aadhar_No AND
+        #             Taxation.ITR_No = Tax_Details.ITR_No AND
+        #             Villagers.Name LIKE 'A%'
+        #         ORDER BY 'Amount to be Paid' DESC
+        #         """
 
-    #     print(query)
-    #     cur.execute(query)
-    #     con.commit()
+        query = """
+                SELECT SELECT TOP(30) PERCENT
+        """
 
-    printTable(cur.fetchall())
+        print(query)
+        cur.execute(query)
+        con.commit()
+        print("Fetched query!!")
 
-    #     print("Fetched query!!")
-
-    # except Exception as e:
-    #     con.rollback()
-    #     print("Failed to delete from database")
-    #     print(">>>>>>>>>>>>>", e)
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 

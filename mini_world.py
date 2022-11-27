@@ -169,16 +169,18 @@ def get_nurse_data():
 def get_large_farm_owners():
     """
     """
-    LARGE_FARM_CUTOFF = 500 #sq-m
+    LARGE_FARM_CUTOFF = input("Enter the cutoff for a large farm (in sq. m)") #sq-m
 
     try:
-        query = "SELECT * \
-                FROM Villagers\
-                WHERE Occupation\
-                LIKE '%Nurse%'"
+        query = "SELECT Villagers.Aadhar_No AS `AADHAR No.`,\
+                 Villagers.Name AS `Owner Name`,\
+                 Farmlands.Area AS `Land Size` \
+                 FROM Villagers INNER JOIN Farmlands \
+                 ON Farmlands.Aadhar_No = Villagers.Aadhar_No\
+                 WHERE Farmlands.Area >= ?"
 
         print(query)
-        cur.execute(query)
+        cur.execute(query, (LARGE_FARM_CUTOFF))
         con.commit()
 
         print("Fetched average age of villagers!!")
@@ -194,11 +196,8 @@ def get_salary_vs_caste():
     """
     """
 
-        try:
-        query = "SELECT * \
-                FROM Villagers\
-                WHERE Occupation\
-                LIKE '%Nurse%'"
+    try:
+        query = ""
 
         print(query)
         cur.execute(query)
@@ -213,15 +212,6 @@ def get_salary_vs_caste():
 
     return
 
-def get_large_farm_owners():
-    """
-    """
-
-    # try:
-
-    # except:
-
-    return
 
 def get_ppl_in_age_group():
     """
@@ -331,7 +321,7 @@ def complex_query_3():
     #     query = "\
     #             SELECT\
     #                 Villagers.Name AS Name,\
-    #                 Taxation.\
+    #                 \
     #             "
 
     #     print(query)

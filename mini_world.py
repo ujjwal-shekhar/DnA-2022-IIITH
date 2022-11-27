@@ -169,7 +169,7 @@ def get_nurse_data():
 def get_large_farm_owners():
     """
     """
-    LARGE_FARM_CUTOFF = input("Enter the cutoff for a large farm (in sq. m)") #sq-m
+    LARGE_FARM_CUTOFF = int(input("Enter the cutoff for a large farm (in sq. m) : ")) #sq-m
 
     try:
         query = "SELECT Villagers.Aadhar_No AS `AADHAR No.`,\
@@ -257,10 +257,20 @@ def get_ppl_availing_MGNREGA():
 def get_major_sources():
     """
     """
+    LARGE_SOURCE_CUTOFF = int(input("Enter the cutoff for being a major source : "))
+    try:
+        query = "SELECT * FROM Sources WHERE Sources.Amount >= ?" 
 
-    # try:
+        print(query)
+        cur.execute(query, (LARGE_SOURCE_CUTOFF))
+        con.commit()
 
-    # except:
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 

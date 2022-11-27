@@ -463,9 +463,9 @@ DROP TABLE IF EXISTS `Tax_Bracket`;
 CREATE TABLE `Tax_Bracket` (
   `Min_Income` int NOT NULL,
   `Max_Income` int NOT NULL,
-  `Tax_bracket` varchar(30) NOT NULL CHECK (`Tax_Bracket` in ('BPL','Non-BPL')),
+  `Percentage` int(2) NOT NULL,
   PRIMARY KEY (`Min_Income`,`Max_Income`),
-  UNIQUE KEY `Tax_Bracket` (`Tax_Bracket`)
+  UNIQUE KEY `Percentage` (`Percentage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -476,8 +476,8 @@ CREATE TABLE `Tax_Bracket` (
 LOCK TABLES `Tax_Bracket` WRITE;
 /*!40000 ALTER TABLE `Tax_Bracket` DISABLE KEYS */;
 INSERT INTO `Tax_Bracket` VALUES
-(0,50000,'BPL'),
-(50000,100000000,'Non-BPL');
+(0,50000,'0'),
+(50000,100000000,'30');
 /*!40000 ALTER TABLE `Tax_Bracket` ENABLE KEYS */;
 UNLOCK TABLES;
 

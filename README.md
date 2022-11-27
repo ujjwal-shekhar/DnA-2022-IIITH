@@ -1,4 +1,4 @@
-﻿
+
 # README
 The follow commands have been demonstrated in the video attached titled '38.mp4', in this very order
 
@@ -151,4 +151,23 @@ WHERE
 Villagers.Aadhar_No = Panchayat_Members.Aadhar_No
 ORDER BY Panchayat_Members.Salary DESC LIMIT 1;
 """
+```
+### Query 15
+We want to identify the people who didn't take the second dose of the vaccine.
+```
+SELECT
+	Villagers1.Aadhar_No AS 'Defaulter Aadhar No',
+	Villagers1.Name AS 'Defaulter Name'
+FROM Villagers AS Villagers1, Events, Event_Participation
+WHERE
+Villagers1.Aadhar_No = Event_Participation.Villager_Aadhar_No AND
+Event_Participation.Date = Events.Date AND
+Events.Purpose LIKE '%1st Dose%' AND
+Villagers1.Aadhar_No NOT IN (
+SELECT Villagers2.Aadhar_No
+FROM Villagers AS Villagers2, Events, Event_Participation
+WHERE Villagers2.Aadhar_No = Event_Participation.Villager_Aadhar_No AND
+Event_Participation.Date = Events.Date AND
+Events.Purpose LIKE '%2nd Dose%'
+)
 ```

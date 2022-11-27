@@ -20,6 +20,7 @@ DROP DATABASE IF EXISTS `DnA_PP4`;
 CREATE SCHEMA `DnA_PP4`;
 USE `DnA_PP4`;
 
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Villagers`
 --
@@ -48,7 +49,7 @@ CREATE TABLE `Villagers` (
 --
 
 LOCK TABLES `Villagers` WRITE;
-/*!40000 ALTER TABLE `Villagers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
 INSERT INTO `Villagers` VALUES 
 ('123456123411','ABCDEF123411','Dhruv Madan','Brahmin','Male',21,1234567811,'Illiterate','Nurse'),
 ('123456123412','ABCDEF123412','Vasu Sood','Brahmin','Male',50,1234567812,'Illiterate','Farmer'),
@@ -70,10 +71,12 @@ INSERT INTO `Villagers` VALUES
 ('123456123436','ABCDEF123436','Indrani Narula','Kshatriya','Female',18,1234567836,'Illiterate','Policeman'),
 ('123456123441','ABCDEF123441','Roshan Kota','Dalit','Male',18,1234567841,'Literate','Farmer'),
 ('123456123442','ABCDEF123442','Ayush Sen','Vaishya','Male',21,1234567842,'Literate','Businessman');
-/*!40000 ALTER TABLE `Villagers` ENABLE KEYS */;
+
+/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
 UNLOCK TABLES;
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
 
-
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `DEPARTMENT`
 --
@@ -85,7 +88,7 @@ CREATE TABLE `Panchayat_Members` (
   `Pan_No` char(12) NOT NULL,
   `Years_of_Service` int(2),
   `Ward_No` int(2),
-  `Salary` int(2),
+  `Salary` int(6),
   `Supervisor_Aadhar_No` char(12) NOT NULL,
   PRIMARY KEY (`Aadhar_No`),
   CONSTRAINT `Panchayat_Members_ibfk_1` FOREIGN KEY (`Supervisor_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -94,21 +97,22 @@ CREATE TABLE `Panchayat_Members` (
 
 
 LOCK TABLES `Panchayat_Members` WRITE;
-/*!40000 ALTER TABLE `Panchayat_Members` DISABLE KEYS */;
+/*!40000 ALTER TABLE `DEPARTMENT` DISABLE KEYS */;
 INSERT INTO `Panchayat_Members` VALUES 
 /*sarpanch*/
-('123456123413','ABCDEF123413',22,3,20000,63,NULL),
+('123456123413','ABCDEF123413',22,3,20000,NULL),
 
-('123456123411','ABCDEF123411',2,1,10000,21,'1234567813'),
-('123456123412','ABCDEF123412',7,2,12000,50,'1234567813'),
-('123456123426','ABCDEF123426',12,4,15000,47,'1234567813'),
-('123456123431','ABCDEF123431',22,5,18000,67,'1234567813'),
-('123456123432','ABCDEF123432',12,6,15000,90,'1234567813');
-/*!40000 ALTER TABLE `Panchayat_Members` ENABLE KEYS */;
+('123456123411','ABCDEF123411',2,1,10000,'1234567813'),
+('123456123412','ABCDEF123412',7,2,12000,'1234567813'),
+('123456123426','ABCDEF123426',12,4,15000,'1234567813'),
+('123456123431','ABCDEF123431',22,5,18000,'1234567813'),
+('123456123432','ABCDEF123432',12,6,15000,'1234567813');
+/*!40000 ALTER TABLE `DEPARTMENT` ENABLE KEYS */;
 UNLOCK TABLES;
 
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
 
-
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Taxation`
 --
@@ -169,6 +173,7 @@ INSERT INTO `Taxation` VALUES
 ('B23456123416','Business',1000000,300000,'123456123416'),
 ('B23456123434','Business',400000,100000,'123456123434'),
 ('B23456123442','Business',600000,150000,'123456123442');
+
 /*!40000 ALTER TABLE `Taxation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +181,8 @@ UNLOCK TABLES;
 -- Table structure for table `Taxation`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Expenditure`
 --
@@ -218,8 +224,9 @@ UNLOCK TABLES;
 -- Table structure for table `DEPENDENT`
 --
 
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
 
-
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Farmlands`
 --
@@ -259,7 +266,8 @@ UNLOCK TABLES;
 -- Table structure for table `Farmlands`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Small_Businesses`
 --
@@ -278,7 +286,9 @@ CREATE TABLE `Small_Businesses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
+--
+-- Dumping data for table `DEPARTMENT`
+--
 
 LOCK TABLES `Small_Businesses` WRITE;
 /*!40000 ALTER TABLE `Small_Businesses` DISABLE KEYS */;
@@ -293,7 +303,8 @@ UNLOCK TABLES;
 -- Table structure for table `Small_Businesses`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Sources`
 --
@@ -329,7 +340,8 @@ UNLOCK TABLES;
 -- Table structure for table `Sources`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Irrigation`
 --
@@ -366,7 +378,8 @@ UNLOCK TABLES;
 -- Table structure for table `Irrigation`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Religion_and_Caste`
 --
@@ -387,7 +400,7 @@ CREATE TABLE `Religion_and_Caste` (
 LOCK TABLES `Religion_and_Caste` WRITE;
 /*!40000 ALTER TABLE `Religion_and_Caste` DISABLE KEYS */;
 INSERT INTO `Religion_and_Caste` VALUES 
--- sarpanch
+/*sarpanch*/
 ('Brahmin','Hindu'),
 ('Kadia','Muslim'),
 ('Nair','Hindu'),
@@ -400,7 +413,8 @@ INSERT INTO `Religion_and_Caste` VALUES
 /*!40000 ALTER TABLE `Religion_and_Caste` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Age_Group`
 --
@@ -416,7 +430,9 @@ CREATE TABLE `Age_Group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
+--
+-- Dumping data for table `DEPARTMENT`
+--
 
 LOCK TABLES `Age_Group` WRITE;
 /*!40000 ALTER TABLE `Age_Group` DISABLE KEYS */;
@@ -432,7 +448,8 @@ UNLOCK TABLES;
 -- Table structure for table `Age_group`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Tax_Bracket`
 --
@@ -448,13 +465,15 @@ CREATE TABLE `Tax_Bracket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
+--
+-- Dumping data for table `DEPARTMENT`
+--
 
 LOCK TABLES `Tax_Bracket` WRITE;
 /*!40000 ALTER TABLE `Tax_Bracket` DISABLE KEYS */;
 INSERT INTO `Tax_Bracket` VALUES
 (0,50000,'BPL'),
-(50000,100000000,'Non_BPL');
+(50000,100000000,'Non-BPL');
 /*!40000 ALTER TABLE `Tax_Bracket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -463,6 +482,7 @@ UNLOCK TABLES;
 --
 -- ------------------------------------------------------------------ RU END------------------------------------------------------------------------
 --
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Tax_Waivers`
 --
@@ -494,7 +514,8 @@ UNLOCK TABLES;
 -- Table structure for table `Tax_Waivers`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Events`
 --
@@ -527,7 +548,8 @@ UNLOCK TABLES;
 -- Table structure for table `Events`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Govt_Schemes`
 --
@@ -536,7 +558,7 @@ DROP TABLE IF EXISTS `Govt_Schemes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Govt_Schemes` (
   `Aadhar_No` char(12) NOT NULL,
-  `Which` varchar(30) NOT NULL CHECK (`Which` in ('	MGNREGA','PMGSY','DDUGKY','NSAP','SAGY'),
+  `Which` varchar(30) NOT NULL CHECK (`Which` in ('	MGNREGA','PMGSY','DDUGKY','NSAP','SAGY')),
   `Since_When` date NOT NULL,
   `Benefits_Provided` varchar(100),
   PRIMARY KEY (`Aadhar_no`,`Which`),
@@ -544,7 +566,9 @@ CREATE TABLE `Govt_Schemes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
+--
+-- Dumping data for table `DEPARTMENT`
+--
 
 LOCK TABLES `Govt_Schemes` WRITE;
 /*!40000 ALTER TABLE `Govt_Schemes` DISABLE KEYS */;
@@ -560,7 +584,8 @@ UNLOCK TABLES;
 -- Table structure for table `Govt_Schemes`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Sponsors`
 --
@@ -576,7 +601,9 @@ CREATE TABLE `Sponsors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
+--
+-- Dumping data for table `DEPARTMENT`
+--
 
 LOCK TABLES `Sponsors` WRITE;
 /*!40000 ALTER TABLE `Sponsors` DISABLE KEYS */;
@@ -596,8 +623,28 @@ UNLOCK TABLES;
 -- Table structure for table `Sponsors`
 --
 
-/*Space left for Manage sources*/
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
 
+
+
+
+
+--SPACE LEFT FOR MANAGE_SOURCES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Manage_Expenditure`
 --
@@ -613,12 +660,14 @@ CREATE TABLE `Manage_Expenditure` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
+--
+-- Dumping data for table `DEPARTMENT`
+--
 
 LOCK TABLES `Manage_Expenditure` WRITE;
 /*!40000 ALTER TABLE `Manage_Expenditure` DISABLE KEYS */;
 INSERT INTO `Manage_Expenditure` VALUES 
--- /sarpanch/
+/*sarpanch*/
 ('123456123413', 220201),
 ('123456123411', 220202),
 ('123456123412', 220203),
@@ -632,8 +681,9 @@ UNLOCK TABLES;
 -- Table structure for table `Manage_Expenditure`
 --
 
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
 
-
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Elect`
 --
@@ -693,6 +743,9 @@ UNLOCK TABLES;
 -- Table structure for table `Elect`
 --
 
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Collect`
 --
@@ -755,7 +808,8 @@ UNLOCK TABLES;
 -- Table structure for table `Collect`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
+-- ------------------------------------------------------------------ RU START ------------------------------------------------------------------------
 --
 -- Table structure for table `Event_Participation`
 --
@@ -777,7 +831,9 @@ CREATE TABLE `Event_Participation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
+--
+-- Dumping data for table `DEPARTMENT`
+--
 
 LOCK TABLES `Event_Participation` WRITE;
 /*!40000 ALTER TABLE `Event_Participation` DISABLE KEYS */;
@@ -823,7 +879,7 @@ INSERT INTO `Event_Participation` VALUES
 
 
 -- ('2022-09-21','Dussehra','Dussehra Celebration');
--- '123456123431'-Panchayat member
+--'123456123431'-Panchayat member
 -- Villagers
 -- '123456123434'
 -- '123456123435'
@@ -844,7 +900,7 @@ UNLOCK TABLES;
 -- Table structure for table `Crops_Grown`
 --
 
-
+-- ------------------------------------------------------------------ RU END ------------------------------------------------------------------------
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -11,8 +11,6 @@ def test_db():
            
         """
         
-        
-                
         print(query)
         cur.execute(query)
         con.commit()

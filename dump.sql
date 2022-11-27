@@ -245,7 +245,7 @@ LOCK TABLES `Expenditure` WRITE;
 /*!40000 ALTER TABLE `Expenditure` DISABLE KEYS */;
 INSERT INTO `Expenditure` VALUES 
 (220201,30000,'Shauchalay Abhiyan','2022-02-15','Past'),
-(220202,39000,'Polio Vaccination 2022','2022-04-06','Ongoing'),
+(220202,39000,'Village Fair','2022-08-06','Past'),
 (220203,23500,'COVID Vaccination Dose 1','2022-05-09','Past'), 
 (220204,15700,'Hospital Road reconstruction','2023-05-25','Future'),
 (220205,35000,'COVID Vaccination Dose 2','2022-07-21','Past'),
@@ -253,7 +253,7 @@ INSERT INTO `Expenditure` VALUES
 (220207,11000,'Earthquake Repairs','2022-07-21','Past'),
 (220208,18300,'Solar Panel Construction','2023-08-26','Future'),
 (220209,9300,'Jail Construction','2022-10-21','Ongoing'),
-(220210,30500,'Navratri','2022-12-19','Past'),
+(220210,30500,'Dussehra','2022-09-01','Past'),
 (220211,12000 ,'Drinking Water Taps','2022-03-21','Ongoing');
 /*!40000 ALTER TABLE `Expenditure` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -897,7 +897,62 @@ CREATE TABLE `Event_Participation` (
 
 LOCK TABLES `Event_Participation` WRITE;
 /*!40000 ALTER TABLE `Event_Participation` DISABLE KEYS */;
-INSERT INTO `Event_Participation` VALUES ('Headquarters',1,'888665555','1981-06-19'),('Administration',4,'987654321','1995-01-01'),('Research',5,'333445555','1988-05-22');
+INSERT INTO `Event_Participation` VALUES 
+--(`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`,`Date`,`Name`,`Expenditure_ID`)
+-- ('2022-08-25','Village Fair','Fair organized for villagers'),
+--'123456123412'-Panchayat member
+--Villagers
+--'123456123425'
+--'123456123426'
+--'123456123433'
+--Expenditure->220202
+(`123456123425`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
+(`123456123426`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
+(`123456123433`,`123456123412`,`2022-08-25`,`Village Fair`,220202),
+
+
+
+-- ('2022-04-22','COVID Vaccination Drive','Vaccination Drive for 1st dose of COVID Vaccine'),
+--'123456123426'-Panchayat member
+--Villagers
+--'123456123411'
+--'123456123412'
+--'123456123421'
+--Expenditure ID-> 220203
+(`123456123411`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
+(`123456123412`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
+(`123456123421`,`123456123426`,`2022-04-22`,`COVID Vaccination Drive`,`220203`),
+
+
+
+-- ('2022-06-10','COVID Vaccination Drive','Vaccination Drive for 2nd dose of COVID Vaccine'),
+--'123456123411'-Panchayat member
+--Villagers
+--'123456123411'
+--'123456123412'
+
+--Expenditure ID-> 220205
+(`123456123411`,`123456123411`,`2022-06-10`,`COVID Vaccination Drive`,220205),
+(`123456123412`,`123456123411`,`2022-06-10`,`COVID Vaccination Drive`,220205),
+
+
+
+
+-- ('2022-09-21','Dussehra','Dussehra Celebration');
+--'123456123431'-Panchayat member
+--Villagers
+--'123456123434'
+--'123456123435'
+--'123456123436'
+--'123456123441'
+--'123456123421'
+
+--Expenditure->220210
+(`123456123434`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
+(`123456123435`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
+(`123456123436`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
+(`123456123441`,`123456123431`,`2022-09-21`,`Dussehra`,220210),
+(`123456123421`,`123456123431`,`2022-09-21`,`Dussehra`,220210);
 /*!40000 ALTER TABLE `Event_Participation` ENABLE KEYS */;
 UNLOCK TABLES;
 

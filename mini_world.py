@@ -76,6 +76,7 @@ def delete_small_business():
 
 def upd_num_emp_small_bsnss():
     """
+    Update the number of employees in a small business.
     """
 
     row = {}
@@ -109,6 +110,8 @@ def upd_num_emp_small_bsnss():
 
 def get_avg_age_villager():
     """
+    Get the average age of a villager.
+    This is an indicator of financially productive population, percent working man power
     """
 
     try:
@@ -133,6 +136,9 @@ def get_avg_age_villager():
 
 def get_vaccination_events():
     """
+    List details of Vaccination events.
+    This is a query that can be used to check what diseases are still to be checked.
+    This could also come in handy to check vaccination events that have occured.
     """
 
     try:
@@ -485,6 +491,61 @@ def get_max_salary_panchayat():
         print(">>>>>>>>>>>>>\n\n\n")
     return
 
+def get_second_dose_defaulters():
+    """
+    """
+
+    try:
+        # query = """
+        #         SELECT
+        #             Villagers.Name AS 'Defaulter Name',
+        #             Villagers.Aadhar_No AS 'Defaulter Aadhar No'
+        #         FROM 
+        #             Event_Participation
+        #         INNER JOIN
+        #             Villagers
+        #         ON 
+        #             Villagers.Aadhar_No = Event_Participation.Villager_Aadhar_No
+        #         WHERE
+        #             Event_Participation.Date = '2022-04-22'
+                            
+        #         """
+
+        query = """
+                SELECT 
+                    Villagers1.Aadhar_No AS 'Defaulter Aadhar No',
+                    Villagers1.Name AS 'Defaulter Name'
+                FROM Villagers AS Villagers1, Events, Event_Participation
+                WHERE 
+                    Villagers1.Aadhar_No = Event_Participation.Villager_Aadhar_No AND
+                    Event_Participation.Date = Events.Date AND
+                    Events.Purpose LIKE '%1st Dose%' AND
+                    Villagers1.Aadhar_No NOT IN (
+                        SELECT Villagers2.Aadhar_No
+                        FROM Villagers AS Villagers2, Events, Event_Participation
+                        WHERE Villagers2.Aadhar_No = Event_Participation.Villager_Aadhar_No AND
+                            Event_Participation.Date = Events.Date AND
+                            Events.Purpose LIKE '%2nd Dose%'
+                    )
+
+                """
+
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        printTable(cur.fetchall())
+
+        print("Fetched query!!\n")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
+    
+    return
+
 def printTable(myDict, colList=None):
    """ Pretty print a list of dictionaries (myDict) as a dynamically sized table.
    If column names (colList) aren't specified, they will show in random order.
@@ -564,11 +625,10 @@ while(1):
         with con.cursor() as cur:
             while(1):
                 tmp = sp.call('clear', shell=True)
-                # Here taking example of Employee Mini-world
-                print("1. Add details of a Villager")  # Hire an Employee
-                print("2. Delete the detials of a Small Business")  # Fire an Employee
-                print("3. Update the Number of Employees of a Small Business")  # Promote Employee
-                print("4. Get the average age of all villagers")  # Employee Statistics
+                print("1. Add details of a Villager")
+                print("2. Delete the detials of a Small Business")
+                print("3. Update the Number of Employees of a Small Business")
+                print("4. Get the average age of all villagers")
                 print("5. Get details of all vaccination events that have taken place")
                 print("6. Get all details about all villagers that are nurses")
                 print("7. Get all details about villagers that own Farms")
@@ -586,7 +646,6 @@ while(1):
                     exit()
                 else:
                     dispatch(ch)
-                    # printTable(cur.fetchall())
                     tmp = input("Enter any key to CONTINUE>")
 
     except Exception as e:

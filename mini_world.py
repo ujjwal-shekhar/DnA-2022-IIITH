@@ -354,13 +354,15 @@ def complex_query_2():
     try:
         query = """
                 SELECT
-                    Villagers.Name AS Name
-                    Villagers.Age AS Age
+                    Villagers.Name AS Name,
+                    Villagers.Age AS Age,
                     Taxation.Total_Income AS 'Current Income'
                 FROM Villagers, Taxation
                 WHERE
-                    Villagers.Aadhar_No = Taxation.Aadhar_No
-                    Taxation.Total_Income <> 0
+                    Villagers.Aadhar_No = Taxation.Aadhar_No AND
+                    Taxation.Total_Income <> 0 AND
+                    Villagers.Sex = 'Female' AND
+                    Villagers.Age > 30
                 """
 
         print(query)
@@ -439,6 +441,36 @@ def get_non_voters():
         print(">>>>>>>>>>>>>\n\n\n")
     return
 
+def get_max_salary_panchayat():
+    """
+    """
+
+    try:
+        query = """
+                SELECT
+                    Villagers.Name AS Name,
+                    Panchayat_Members.Salary AS Salary
+                FROM Villagers, Panchayat_Members
+                WHERE
+                    Villagers.Aadhar_No = Panchayat_Members.Aadhar_No 
+                ORDER BY Panchayat_Members.Salary DESC LIMIT 1
+                """
+
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        printTable(cur.fetchall())
+
+        print("Fetched query!!\n")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
+    return
+
 def printTable(myDict, colList=None):
    """ Pretty print a list of dictionaries (myDict) as a dynamically sized table.
    If column names (colList) aren't specified, they will show in random order.
@@ -458,13 +490,33 @@ def dispatch(ch):
     """
 
     if(ch == 1):
-        get_nurse_data()
+        add_new_villager()
     elif(ch == 2):
-        complex_query_1()
+        delete_small_business()
     elif(ch == 3):
-        get_non_voters()
+        upd_num_emp_small_bsnss()
     elif(ch == 4):
-        get_ppl_availing_MGNREGA()
+        get_avg_age_villager()
+    elif(ch == 5):
+        get_vaccination_events()
+    elif(ch == 6):
+        get_nurse_data()
+    elif(ch == 7):
+        get_large_farm_owners()
+    elif(ch == 8):
+        get_income_vs_caste()
+    elif(ch == 9):
+        get_ppl_in_age_group()
+    elif(ch == 10):
+        get_major_sources()
+    elif(ch == 11):
+        complex_query_1()
+    elif(ch == 12):
+        complex_query_2()
+    elif(ch == 13):
+        complex_query_3()
+    elif(ch == 14):
+        get_non_voters()
     else:
         print("Error: Invalid Option")
 
@@ -499,14 +551,24 @@ while(1):
             while(1):
                 tmp = sp.call('clear', shell=True)
                 # Here taking example of Employee Mini-world
-                print("1. Option 1")  # Hire an Employee
-                print("2. Option 2")  # Fire an Employee
-                print("3. Option 3")  # Promote Employee
-                print("4. Option 4")  # Employee Statistics
-                print("5. Logout")
+                print("1. Add details of a Villager")  # Hire an Employee
+                print("2. Delete the detials of a Small Business")  # Fire an Employee
+                print("3. Update the Number of Employees of a Small Business")  # Promote Employee
+                print("4. Get the average age of all villagers")  # Employee Statistics
+                print("5. Get details of all vaccination events that have taken place")
+                print("6. Get all details about all villagers that are nurses")
+                print("7. Get all details about villagers that own Farms")
+                print("8. Get the average income of each caste")
+                print("9. Get the number of people belonging to a particular age group")
+                print("10. Get the sources that have contributed the most")
+                print("11. List tax waivers and information of Panchayat members with farmland area >= 1000 m2")
+                print("12. List number of employed women above the age of 30")
+                print("13. List details of people with names starting with \"A\" and are in the top 30 percent of tax payers")
+                print("14. List details of people who didn't vote.")
+                print("15. Logout")
                 ch = int(input("Enter choice> "))
                 tmp = sp.call('clear', shell=True)
-                if ch == 5:
+                if ch == 15:
                     exit()
                 else:
                     dispatch(ch)

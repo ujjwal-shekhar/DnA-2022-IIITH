@@ -828,10 +828,10 @@ CREATE TABLE `Event_Participation` (
   `Expenditure_ID` int(6) NOT NULL,
 
   PRIMARY KEY (`Villager_Aadhar_No`,`Panchayat_Member_Aadhar_No`,`Date`,`Name`,`Expenditure_ID`),
-  CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Event_Participation_ibfk_3` FOREIGN KEY (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Event_Participation_ibfk_4` FOREIGN KEY (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Event_Participation_ibfk_1` FOREIGN KEY `Event_Participation` (`Villager_Aadhar_No`) REFERENCES `Villagers` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_2` FOREIGN KEY `Event_Participation` (`Panchayat_Member_Aadhar_No`) REFERENCES `Panchayat_Members` (`Aadhar_No`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_3` FOREIGN KEY `Event_Participation` (`Date`,`Name`) REFERENCES `Events` (`Date`,`Name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Event_Participation_ibfk_4` FOREIGN KEY `Event_Participation` (`Expenditure_ID`) REFERENCES `Expenditure` (`Expenditure_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

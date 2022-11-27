@@ -153,7 +153,7 @@ ORDER BY Panchayat_Members.Salary DESC LIMIT 1;
 """
 ```
 ### Query 15
-We want to identify the people who didn't take the second dose of the vaccine.
+We want to identify the people who didn't take the second dose of the vaccine after having taken the first dose.
 ```
 SELECT
 	Villagers1.Aadhar_No AS 'Defaulter Aadhar No',

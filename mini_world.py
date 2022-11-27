@@ -192,12 +192,17 @@ def get_large_farm_owners():
 
     return
 
-def get_salary_vs_caste():
+def get_income_vs_caste():
     """
+    List average income of each caste.
     """
 
     try:
-        query = ""
+        query = "SELECT Villagers.Caste_or_Sect AS `Caste`,\
+                 AVG(Taxation.Total_Income) AS `Average Income`\
+                 FROM Villagers, Taxation\
+                 WHERE Villagers.Aadhar_No = Taxation.Aadhar_No\
+                 GROUP BY Villagers.Caste_or_Sect"
 
         print(query)
         cur.execute(query)

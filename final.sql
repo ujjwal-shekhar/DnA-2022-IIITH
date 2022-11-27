@@ -400,7 +400,7 @@ CREATE TABLE `Religion_and_Caste` (
 LOCK TABLES `Religion_and_Caste` WRITE;
 /*!40000 ALTER TABLE `Religion_and_Caste` DISABLE KEYS */;
 INSERT INTO `Religion_and_Caste` VALUES 
-/sarpanch/
+/*sarpanch*/
 ('Brahmin','Hindu'),
 ('Kadia','Muslim'),
 ('Nair','Hindu'),

@@ -367,10 +367,14 @@ INSERT INTO `Irrigation` VALUES
 ('123456123412',1,'Well'),
 ('123456123413',1,'Canal'),
 ('123456123421',1,'Well'),
+('123456123421',1,'Canal'),
 ('123456123422',1,'Tubewell'),
 ('123456123424',1,'Canal'),
+('123456123424',1,'Well'),
+('123456123424',1,'Tubewell'),
 ('123456123441',1,'Well'),
-('123456123441',2,'Tubewell');
+('123456123441',2'Tubewell'),
+('123456123441',2'Well');
 /*!40000 ALTER TABLE `Irrigation` ENABLE KEYS */;
 UNLOCK TABLES;
 

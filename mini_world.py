@@ -17,7 +17,7 @@ def add_new_villager():
         row["Sex"] = input("Please enter the villager's sex: ")
         row["Age"] = input("Please enter the villager's age: ")
         row["Phone"] = int(input("Please enter the villager's phone number: "))
-        row["Literacy"] = int(input("Is the villager literate? (Y / N) : "))
+        row["Literacy"] = input("Is the villager literate? (Y / N) : ")
         row["Occupation"] = input("Please enter the villager's occupation (none if not employed): ")
     
         if row["Literacy"] == 'n' or row["Literacy"] == 'N':
@@ -27,7 +27,7 @@ def add_new_villager():
         else:
             raise Exception("Invalid input for Literacy")
 
-        query = "INSERT INTO VILLAGER\
+        query = "INSERT INTO Villagers\
                 (Aadhar_No, Pan_No, Name, Caste, Sex, Age, Phone, Literacy, Occupation) \
                 VALUES('%d', '%d', '%s', '%s', '%s', '%d', '%d', %s, %s)" % (
                 row["AADHAR"], row["PAN"], row["Name"], row["Caste"], row["Sex"], \
@@ -37,12 +37,13 @@ def add_new_villager():
         cur.execute(query)
         con.commit()
 
-        print("Inserted Into Database")
+        print("Inserted Into Database\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to insert into database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to insert into database\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -56,19 +57,20 @@ def delete_small_business():
     row["name"] = input("Enter name of the small business")
 
     try:
-        query = "DELETE FROM `SMALL BUSINESS`\
+        query = "DELETE FROM `Small_Businesses`\
                  WHERE Aadhar_No = %d AND Name = %s"
 
         print(query)
         cur.execute(query, (row["AADHAR"], row["Name"]))
         con.commit()
 
-        print("Deleted from Database")
+        print("Deleted from Database\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to delete from database\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -90,12 +92,13 @@ def upd_num_emp_small_bsnss():
         cur.execute(query, (row["No_of_employees"]))
         con.commit()
 
-        print("Updated Database!")
+        print("Updated Database!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to update database!\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
 
     return
@@ -112,12 +115,13 @@ def get_avg_age_villager():
         cur.execute(query)
         con.commit()
 
-        print("Fetched average age of villagers!!")
+        print("Fetched average age of villagers!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch average age of villagers\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -133,12 +137,13 @@ def get_vaccination_events():
         cur.execute(query)
         con.commit()
 
-        print("Fetched average age of villagers!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -154,14 +159,16 @@ def get_nurse_data():
 
         print(query)
         cur.execute(query)
+        
         con.commit()
 
-        print("Fetched average age of villagers!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -183,12 +190,13 @@ def get_large_farm_owners():
         cur.execute(query, (LARGE_FARM_CUTOFF))
         con.commit()
 
-        print("Fetched average age of villagers!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -208,12 +216,13 @@ def get_income_vs_caste():
         cur.execute(query)
         con.commit()
 
-        print("Fetched average age of villagers!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -245,12 +254,13 @@ def get_ppl_availing_MGNREGA():
         cur.execute(query)
         con.commit()
 
-        print("Fetched average age of villagers!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -265,12 +275,13 @@ def get_major_sources():
         cur.execute(query, (LARGE_SOURCE_CUTOFF))
         con.commit()
 
-        print("Fetched average age of villagers!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return
 
@@ -302,12 +313,13 @@ def complex_query_1():
         cur.execute(query)
         con.commit()
 
-        print("Fetched query!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
     return
 
 def complex_query_2():
@@ -333,12 +345,13 @@ def complex_query_2():
         cur.execute(query)
         con.commit()
 
-        print("Fetched query!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
 
     return 
 
@@ -389,14 +402,27 @@ def get_non_voters():
         cur.execute(query)
         con.commit()
 
-        print("Fetched query!!")
+        print("Fetched query!!\n")
 
     except Exception as e:
         con.rollback()
-        print("Failed to delete from database")
-        print(">>>>>>>>>>>>>", e)
+        print("Failed to fetch query results\n")
+        print(">>>>>>>>>>>>>\n\n\n", e)
+        print(">>>>>>>>>>>>>\n\n\n")
     return
 
+def printTable(myDict, colList=None):
+   """ Pretty print a list of dictionaries (myDict) as a dynamically sized table.
+   If column names (colList) aren't specified, they will show in random order.
+   Author: Thierry Husson - Use it as you want but don't blame me.
+   """
+   if not colList: colList = list(myDict[0].keys() if myDict else [])
+   myList = [colList] # 1st row = header
+   for item in myDict: myList.append([str(item[col] if item[col] is not None else '') for col in colList])
+   colSize = [max(map(len,col)) for col in zip(*myList)]
+   formatStr = ' | '.join(["{{:<{}}}".format(i) for i in colSize])
+   myList.insert(1, ['-' * i for i in colSize]) # Seperating line
+   for item in myList: print(formatStr.format(*item))
 
 def dispatch(ch):
     """
@@ -404,13 +430,13 @@ def dispatch(ch):
     """
 
     if(ch == 1):
-        hireAnEmployee()
+        get_nurse_data()
     elif(ch == 2):
-        option2()
+        get_avg_age_villager()
     elif(ch == 3):
-        option3()
+        get_non_voters()
     elif(ch == 4):
-        option4()
+        get_ppl_availing_MGNREGA()
     else:
         print("Error: Invalid Option")
 
@@ -420,8 +446,8 @@ while(1):
     tmp = sp.call('clear', shell=True)
     
     # Can be skipped if you want to hardcode username and password
-    username = input("Username: ")
-    password = input("Password: ")
+    username = "root" #input("Username: ")
+    password = "mynewpassword" #input("Password: ")
 
     try:
         # Set db name accordingly which have been create by you
@@ -430,7 +456,7 @@ while(1):
                               port=3306,
                               user="root",
                               password="mynewpassword",
-                              db='DNA_TEST',
+                              db='DnA_PP4',
                               cursorclass=pymysql.cursors.DictCursor)
         tmp = sp.call('clear', shell=True)
 
@@ -456,6 +482,7 @@ while(1):
                     exit()
                 else:
                     dispatch(ch)
+                    printTable(cur.fetchall())
                     tmp = input("Enter any key to CONTINUE>")
 
     except Exception as e:

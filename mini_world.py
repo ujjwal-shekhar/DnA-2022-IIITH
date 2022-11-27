@@ -387,21 +387,15 @@ def complex_query_3():
     """
 
     try:
-        # query = """
-        #         SELECT TOP(30) PERCENT
-        #             Villagers.Name AS 'Tax Payer Name',
-        #             `Tax_Details.Tax_Amount`
-        #         FROM 
-        #             Villagers, Tax_Details, Taxation
-        #         WHERE 
-        #             Villagers.Aadhar_No = Taxation.Aadhar_No AND
-        #             Taxation.ITR_No = Tax_Details.ITR_No AND
-        #             Villagers.Name LIKE 'A%'
-        #         ORDER BY 'Amount to be Paid' DESC
-        #         """
-
         query = """
-                SELECT SELECT TOP(30) PERCENT
+            SELECT *
+            FROM    (
+                SELECT Name, @counter := @counter +1 AS 'Priority'
+                FROM (select @counter:=0) AS initvar, Tax_Details
+                WHERE Name LIKE 'A%'
+                ORDER BY Tax_Amount DESC   
+            ) AS X
+            where Priority <= (100/100 * @counter);
         """
 
         print(query)

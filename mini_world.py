@@ -232,9 +232,25 @@ def get_ppl_availing_MGNREGA():
     """
     """
 
-    # try:
+    try:
+        query = "SELECT Govt_Schemes.Which AS `Scheme Name`,\
+                 Govt_Schemes.Since_When AS `Time since in effect`,\
+                 Govt_Schemes.Benefits_Provided AS `Benefits`\
+                 Villagers.Name AS `Beneficiary Name`\
+                 FROM Gove_Schemes INNER JOIN Villagers ON\
+                 Villagers.Aadhar_No = Govt_Schemes.Aadhar_No\
+                 WHERE Govt_Schemes.Name LIKE '%MGNREGA%'" 
 
-    # except:
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched average age of villagers!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
 
     return
 

@@ -369,6 +369,32 @@ def complex_query_3():
     return
 
 def get_non_voters():
+    """
+    """
+
+    try:
+        query = "\
+                SELECT\
+                    Villagers.Aadhar_No AS `Non-Voter AADHAR NUMBER`\
+                    Villagers.Name AS `Non-Voter Name`\
+                FROM Villagers\
+                WHERE\
+                    Villagers.Aadhar_No IS NOT IN (\
+                        SELECT Elect.Villager_Aadhar_No\
+                        FROM Elect\
+                    )\
+                "
+
+        print(query)
+        cur.execute(query)
+        con.commit()
+
+        print("Fetched query!!")
+
+    except Exception as e:
+        con.rollback()
+        print("Failed to delete from database")
+        print(">>>>>>>>>>>>>", e)
     return
 
 def hireAnEmployee():

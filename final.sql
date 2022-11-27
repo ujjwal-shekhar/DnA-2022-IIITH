@@ -558,7 +558,7 @@ DROP TABLE IF EXISTS `Govt_Schemes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Govt_Schemes` (
   `Aadhar_No` char(12) NOT NULL,
-  `Which` varchar(30) NOT NULL CHECK (`Which` in ('	MGNREGA','PMGSY','DDUGKY','NSAP','SAGY'),
+  `Which` varchar(30) NOT NULL CHECK (`Which` in ('	MGNREGA','PMGSY','DDUGKY','NSAP','SAGY')),
   `Since_When` date NOT NULL,
   `Benefits_Provided` varchar(100),
   PRIMARY KEY (`Aadhar_no`,`Which`),
